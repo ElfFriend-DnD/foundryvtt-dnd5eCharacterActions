@@ -1,5 +1,6 @@
 {{!-- props: {items: oneof sheetData.actionsData; label: string;} --}}
 
+{{#*inline 'action-sublist'}}
 {{#unless (cb5es-isEmpty items)}}
 <li class="item inventory-header flexrow">
   <h3 class="item-name flexrow">{{label}}</h3>
@@ -48,3 +49,21 @@
   {{/each}}
 </ol>
 {{/unless}}
+{{/inline}}
+
+
+<ol class="inventory-list">
+
+  {{!-- Actions --}}
+  {{> action-sublist  items=data.action label=(localize "DND5E.Action") }}
+
+  {{!-- Bonus Actions --}}
+  {{> action-sublist  items=data.bonus label=(localize "DND5E.BonusAction") }}
+
+  {{!-- Reactions --}}
+  {{> action-sublist  items=data.reaction label=(localize "DND5E.Reaction") }}
+
+  {{!-- Special --}}
+  {{> action-sublist  items=data.special label=(localize "DND5E.Special") }}
+
+</ol>

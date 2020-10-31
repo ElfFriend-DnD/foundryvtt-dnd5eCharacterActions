@@ -30,18 +30,18 @@ https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/lates
 
 I'm honestly not sure how well this will play with modules that affect character sheets, I'll try to test as many as possible but if something is obviously breaking please create and issue here and I'll see what I can do.
 
-| **Name**                                                                    |       Works        | Notes                                                                                                                               |
-| --------------------------------------------------------------------------- | :----------------: | ----------------------------------------------------------------------------------------------------------------------------------- |
-| [Better Rolls 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)     | :heavy_check_mark: | Integrated with 0.7.x, all tabs seem to be working properly.                                                                        |
-| [Midi-QOL](https://gitlab.com/tposney/midi-qol)                             | :heavy_check_mark: | Integrated with 0.7.x, Everything seems normal.                                                                                     |
-| [Minor QOL](https://gitlab.com/tposney/minor-qol)                           |        :x:         | Deprecated in favor of Midi-QOL. Won't Support.                                                                                     |
-| [FoundryVTT Magic Items](https://gitlab.com/riccisi/foundryvtt-magic-items) | :heavy_check_mark: | List of Spells is Appended to more or less correctly, but new abilities are not added to the Actions Tab.                           |
-| [D&D5e Dark Mode](https://github.com/Stryxin/dnd5edark-foundryvtt)          | :heavy_check_mark: | Made tweaks to make foundry-wide dark mode "usable."                                                                                |
-| [Inventory+](https://github.com/syl3r86/inventory-plus)                     |      :shrug:       | Inventory Tab Features interfere with how we generate the Actions Tab. If Inventory+ is on, the actions tab will not display items. |
+| **Name**                                                                    |  Works  | Notes |
+| --------------------------------------------------------------------------- | :-----: | ----- |
+| [Better Rolls 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)     | :shrug: |       |
+| [Midi-QOL](https://gitlab.com/tposney/midi-qol)                             | :shrug: |       |
+| [Minor QOL](https://gitlab.com/tposney/minor-qol)                           | :shrug: |       |
+| [FoundryVTT Magic Items](https://gitlab.com/riccisi/foundryvtt-magic-items) | :shrug: |       |
+| [D&D5e Dark Mode](https://github.com/Stryxin/dnd5edark-foundryvtt)          | :shrug: |       |
+| [Inventory+](https://github.com/syl3r86/inventory-plus)                     | :shrug: |       |
 
 ## Known Issues
 
-- None
+- Plenty
 
 ## Acknowledgements
 

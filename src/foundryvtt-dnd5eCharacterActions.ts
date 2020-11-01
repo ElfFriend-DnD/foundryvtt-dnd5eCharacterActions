@@ -37,14 +37,18 @@ const actionsActionsListRenderers = new Set();
 // this should only be called if a sheet hasn't yet rendered the actions list themselves
 async function addActionsTab(app: Application, html, data: ActorSheet5eCharacterSheetData) {
   // Update the nav menu
-  let actionsTabButton = $('<a class="item" data-tab="actions">' + game.i18n.localize(`DND5E.ActionPl`) + '</a>');
-  let tabs = html.find('.tabs[data-group="primary"]');
+  const actionsTabButton = $('<a class="item" data-tab="actions">' + game.i18n.localize(`DND5E.ActionPl`) + '</a>');
+  const tabs = html.find('.tabs[data-group="primary"]');
   tabs.append(actionsTabButton);
 
-  // Create the tab content
-  let sheet = html.find('.sheet-body');
-  let actionsTabHtml = $(await renderActionsList(data.actor, app.appId));
-  sheet.append(actionsTabHtml);
+  // Create the tab
+  const sheet = html.find('.sheet-body');
+  const actionsTab = $(`<div class="tab actions flexcol" data-group="primary" data-tab="actions"></div>`);
+  sheet.prepend(actionsTab);
+
+  // add the list to the tab
+  const actionsTabHtml = $(await renderActionsList(data.actor, app.appId));
+  actionsTab.append(actionsTabHtml);
 
   // add this appId to the list of renderers
   actionsActionsListRenderers.add(app.appId);

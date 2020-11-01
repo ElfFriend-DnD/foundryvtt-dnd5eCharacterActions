@@ -34,17 +34,24 @@ Handlebars.registerHelper('cb5es-isEmpty', (input: Object | Array<any> | Set<any
 
 const actionsActionsListRenderers = new Set();
 
-// this should only be called if a sheet hasn't yet rendered the actions list themselves
+//
+/**
+ * Add the Actions Tab to Sheet HTML
+ * This does not register any event listeners as I am hoping that this suggestion will be adopted:
+ * https://gitlab.com/foundrynet/foundryvtt/-/issues/3998
+ *
+ * this should only be called if a sheet hasn't yet rendered the actions list themselves
+ */
 async function addActionsTab(app: Application, html, data: ActorSheet5eCharacterSheetData) {
   // Update the nav menu
   const actionsTabButton = $('<a class="item" data-tab="actions">' + game.i18n.localize(`DND5E.ActionPl`) + '</a>');
   const tabs = html.find('.tabs[data-group="primary"]');
-  tabs.append(actionsTabButton);
+  tabs.prepend(actionsTabButton);
 
   // Create the tab
-  const sheet = html.find('.sheet-body');
+  const sheetBody = html.find('.sheet-body');
   const actionsTab = $(`<div class="tab actions flexcol" data-group="primary" data-tab="actions"></div>`);
-  sheet.prepend(actionsTab);
+  sheetBody.prepend(actionsTab);
 
   // add the list to the tab
   const actionsTabHtml = $(await renderActionsList(data.actor, app.appId));

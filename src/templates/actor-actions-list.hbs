@@ -1,6 +1,7 @@
 {{!-- props: {items: oneof sheetData.actionsData; label: string;} --}}
 
 {{#*inline 'action-sublist'}}
+{{log items}}
 {{#unless (cb5es-isEmpty items)}}
 <li class="item inventory-header flexrow">
   <h3 class="item-name flexrow">{{label}}</h3>
@@ -53,17 +54,15 @@
 
 
 <ol class="inventory-list">
-
   {{!-- Actions --}}
-  {{> action-sublist  items=data.action label=(localize "DND5E.Action") }}
+  {{> action-sublist  items=action label=(localize "DND5E.Action") }}
 
   {{!-- Bonus Actions --}}
-  {{> action-sublist  items=data.bonus label=(localize "DND5E.BonusAction") }}
+  {{> action-sublist  items=bonus label=(localize "DND5E.BonusAction") }}
 
   {{!-- Reactions --}}
-  {{> action-sublist  items=data.reaction label=(localize "DND5E.Reaction") }}
+  {{> action-sublist  items=reaction label=(localize "DND5E.Reaction") }}
 
   {{!-- Special --}}
-  {{> action-sublist  items=data.special label=(localize "DND5E.Special") }}
-
+  {{> action-sublist  items=special label=(localize "DND5E.Special") }}
 </ol>

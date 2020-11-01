@@ -1,57 +1,36 @@
 /* This is by no means an accurate type for the 5e system, but it is enough of a start for ts to not complain */
 
-declare enum ActivationType5e {
-  action = 'action',
-  bonus = 'bonus',
-  reaction = 'reaction',
-  special = 'special',
-}
-
-declare enum ItemType5e {
-  weapon = 'weapon',
-  equipment = 'equipment',
-  consumable = 'consumable',
-  tool = 'tool',
-  loot = 'loot',
-  class = 'class',
-  spell = 'spell',
-  feat = 'feat',
-  backpack = 'backpack',
-}
-
-declare enum ActionType5e {
-  mwak = 'mwak',
-  rwak = 'rwak',
-  rsak = 'rsak',
-  msak = 'msak',
-  save = 'save',
-}
+type ActionType5e = 'mwak' | 'rwak' | 'rsak' | 'msak' | 'save';
+type ActivationType5e = 'action' | 'bonus' | 'reaction' | 'special';
+type ItemType5e = 'weapon' | 'equipment' | 'consumable' | 'tool' | 'loot' | 'class' | 'spell' | 'feat' | 'backpack';
 
 interface ItemData5e extends ItemData {
-  equipped?: boolean;
+  ability?: 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
+  actionType?: ActionType5e;
   activation?: {
     type?: ActivationType5e | '';
   };
+  attackBonus?: number;
+  damage?: {
+    parts: string[][];
+  };
+  equipped?: boolean;
+  level?: number; // spell level if applicable
   preparation?: {
     mode: 'always' | 'prepared';
     prepared: boolean;
   };
-  damage?: {
-    parts: string[][];
-  };
-  ability?: 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
-  actionType?: ActionType5e;
+  proficient?: boolean;
   properties?: {
     fin?: boolean;
   };
   weaponType?: 'simpleM' | 'martialM' | 'simpleR' | 'martialR' | 'natural' | 'improv' | 'siege';
-  type: ItemType5e;
-  level?: number; // spell level if applicable
 }
 
 interface Item5e extends Item<ItemData5e> {
   data: ItemData5e;
   labels: Record<string, string>;
+  type: ItemType5e;
 }
 
 type AbilityBonus = {

@@ -5,7 +5,7 @@ import { MODULE_ABBREV, MODULE_ID, MySettings } from './module/constants';
 import { getActivationType, getWeaponRelevantAbility, log } from './module/helpers';
 import { getActorActionsData } from './module/getActorActionsData';
 
-Handlebars.registerHelper('cb5es-isEmpty', (input: Object | Array<any> | Set<any>) => {
+Handlebars.registerHelper(`${MODULE_ABBREV}-isEmpty`, (input: Object | Array<any> | Set<any>) => {
   if (input instanceof Array) {
     return input.length < 1;
   }
@@ -34,7 +34,6 @@ Handlebars.registerHelper('cb5es-isEmpty', (input: Object | Array<any> | Set<any
 
 const actionsActionsListRenderers = new Set();
 
-//
 /**
  * Add the Actions Tab to Sheet HTML
  * This does not register any event listeners as I am hoping that this suggestion will be adopted:

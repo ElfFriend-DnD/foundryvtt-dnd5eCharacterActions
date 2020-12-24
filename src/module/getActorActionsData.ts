@@ -18,8 +18,9 @@ export function getActorActionsData(actor: Actor5eCharacter) {
 
     // MUTATES actionsData
     equippedWeapons.forEach((item) => {
+      debugger;
       const attackBonus = item.data.attackBonus;
-      // FIXME this has to be set by the user, perhaps we can infer from the `traits.weaponProf`
+
       const prof = item.data.proficient ? actor.data.attributes.prof : 0;
 
       const actionType = item.data.actionType;

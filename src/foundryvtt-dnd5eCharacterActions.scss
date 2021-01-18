@@ -1,7 +1,7 @@
 @import './styles/variables.scss';
 
 // ensure our styles take precedence over 5e default
-.character-actions-dnd5e {
+.dnd5e.sheet.actor .character-actions-dnd5e {
   // use the active whetstone global theme if there is one
   --accent-text: var(--Whetstone-fg-secondary, #4b4a44);
   --color: var(--Whetstone-fg-primary, #191813);

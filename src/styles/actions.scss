@@ -1,10 +1,6 @@
 @import './mixins';
 @import './variables';
 
-.action-range {
-  flex-direction: column;
-}
-
 .actions {
   .item-name {
     flex: 2;
@@ -15,4 +11,20 @@
       flex: 1;
     }
   }
+}
+
+.action-range {
+  flex-basis: 100px;
+  flex-direction: column;
+  text-overflow: ellipsis;
+}
+
+.damage-cell {
+  flex-basis: 100px;
+  text-overflow: ellipsis;
+}
+
+.to-hit-cell {
+  flex-basis: 100px;
+  text-overflow: ellipsis;
 }

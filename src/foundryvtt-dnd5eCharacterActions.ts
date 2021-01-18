@@ -140,7 +140,12 @@ Hooks.once('ready', function () {
 
 // Add any additional hooks if necessary
 
+// default sheet injection if this hasn't yet been injected
 Hooks.on('renderActorSheet5e', (app, html, data) => {
+  if (actionsActionsListRenderers.has(app.appId)) {
+    return;
+  }
+
   log(false, 'default sheet open hook firing', {
     app,
     html,
@@ -149,30 +154,39 @@ Hooks.on('renderActorSheet5e', (app, html, data) => {
   });
 
   addActionsTab(app, html, data);
-});
 
-Hooks.on('closeActorSheet5e', (app, html, data) => {
-  log(false, 'default sheet close hook firing', {
-    app,
-    html,
-    data,
-    actionsActionsListRenderers,
+  // hacky way to make default sheet injection work
+  // danger for duplicating on other sheets using the api correctly?
+  Hooks.once('updateActor', (actor) => {
+    log(false, 'updateActor hook firing', {
+      apps: actor.apps,
+      actionsActionsListRenderers,
+    });
+
+    Object.keys(actor.apps).forEach((appId) => {
+      cleanupActionsTab(Number(appId));
+    });
   });
 
-  cleanupActionsTab(app.appId);
-});
+  Hooks.once('updateOwnedItem', (actor) => {
+    log(false, 'updateOwnedItem hook firing', {
+      apps: actor.apps,
+      actionsActionsListRenderers,
+    });
 
-Hooks.on('updateActor', (actor, diffs: any, { diff }, id) => {
-  log(false, 'updateActor hook firing', {
-    apps: actor.apps,
-    actionsActionsListRenderers,
+    Object.keys(actor.apps).forEach((appId) => {
+      cleanupActionsTab(Number(appId));
+    });
   });
 
-  Object.keys(actor.apps).forEach((appId) => {
-    cleanupActionsTab(Number(appId));
-  });
-});
+  Hooks.once('closeActorSheet5e', (app, html, data) => {
+    log(false, 'default sheet close hook firing', {
+      app,
+      html,
+      data,
+      actionsActionsListRenderers,
+    });
 
-Hooks.on('renderCompactBeyond5eSheet', (...args) => {
-  log(false, 'custom sheet hook firing', ...args);
+    cleanupActionsTab(app.appId);
+  });
 });

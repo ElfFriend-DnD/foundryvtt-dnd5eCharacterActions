@@ -24,7 +24,7 @@
       {{/if}}
     </div>
 
-    <div class="action-range">
+    <div class="item-detail action-range flexcol">
       <span>{{labels.range}}</span>
       {{#if labels.target}}
       <small>
@@ -33,7 +33,7 @@
       {{/if}}
     </div>
 
-    <div class="to-hit-cell">
+    <div class="item-detail to-hit-cell">
       {{#if (or labels.save labels.toHit)}}
       {{#unless (or (eq labels.save "") (eq labels.save undefined))}}
       <span>{{labels.save}}</span>
@@ -43,7 +43,7 @@
       {{/if}}
     </div>
 
-    <div class="damage-cell">
+    <div class="item-detail damage-cell">
       {{labels.damage}} {{labels.damageTypes}}
     </div>
   </li>
@@ -53,7 +53,7 @@
 {{/inline}}
 
 {{log 'character-actions-list-5e' 'this' this}}
-<ol class="items-list inventory-list">
+<ol class="character-actions-dnd5e items-list inventory-list">
   {{!-- Actions --}}
   {{> action-sublist items=action label=(localize "DND5E.Action") }}
 

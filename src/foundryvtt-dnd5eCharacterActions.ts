@@ -71,9 +71,6 @@ async function addActionsTab(
   actionsTabHtml.find('.item .item-image').click((event) => app._onItemRoll(event));
   // @ts-ignore
   actionsTabHtml.find('.item .item-name.rollable h4').click((event) => app._onItemSummary(event));
-
-  // add this appId to the list of renderers
-  actionsActionsListRenderers.add(app.appId);
 }
 
 function cleanupActionsTab(appId) {
@@ -93,6 +90,10 @@ async function renderActionsList(actorData: Actor5eCharacter, appId) {
   if (!!appId && actionsActionsListRenderers.has(appId)) {
     return;
   }
+
+  // add this appId to the list of renderers
+  actionsActionsListRenderers.add(appId);
+
   const data = await getActorActionsData(actorData);
 
   log(false, 'renderActionsList', {
@@ -114,6 +115,10 @@ Hooks.once('init', async function () {
 
   // Preload Handlebars templates
   await loadTemplates(Object.values(flattenObject(TEMPLATES)));
+
+  globalThis[MODULE_ID] = {
+    renderActionsList,
+  };
 
   Hooks.call(`CharacterActions5eReady`);
 });

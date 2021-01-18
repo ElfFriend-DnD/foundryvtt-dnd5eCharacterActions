@@ -19,7 +19,7 @@ export function getActorActionsData(actor: Actor5eCharacter) {
   try {
     // digest all weapons equipped populate the actionsData appropriate categories
     const equippedWeapons: Item5e[] =
-      actor.items.filter((item: Item5e) => item.type === 'weapon' && item.data.equipped) || [];
+      actor.items.filter((item: Item5e) => item.type === 'weapon' && item.data.data.equipped) || [];
 
     log(false, {
       equippedWeapons,
@@ -27,7 +27,7 @@ export function getActorActionsData(actor: Actor5eCharacter) {
 
     // MUTATES actionsData
     equippedWeapons.forEach((item) => {
-      const activationType = getActivationType(item.data.activation?.type);
+      const activationType = getActivationType(item.data.data.activation?.type);
 
       actionsData[activationType].add(item);
     });
@@ -41,16 +41,16 @@ export function getActorActionsData(actor: Actor5eCharacter) {
 
     const preparedSpells: Item5e[] = actor.items.filter((item: Item5e) => {
       const isSpell = item.type === 'spell';
-      const isPrepared = item.data.preparation?.mode === 'always' || item.data.preparation?.prepared;
+      const isPrepared = item.data.data.preparation?.mode === 'always' || item.data.data.preparation?.prepared;
 
       return isSpell && isPrepared;
     });
 
     const relevantSpells = preparedSpells.filter((spell) => {
-      const isReaction = spell.data.activation?.type === 'reaction';
+      const isReaction = spell.data.data.activation?.type === 'reaction';
       //ASSUMPTION: If the spell causes damage, it will have damageParts
-      const isDamageDealer = spell.data.damage?.parts?.length > 0;
-      const isCantrip = spell.data.level === 0;
+      const isDamageDealer = spell.data.data.damage?.parts?.length > 0;
+      const isCantrip = spell.data.data.level === 0;
 
       if (game.settings.get(MODULE_ID, MySettings.limitActionsToCantrips)) {
         return isCantrip && (isReaction || isDamageDealer);
@@ -68,7 +68,7 @@ export function getActorActionsData(actor: Actor5eCharacter) {
     // });
 
     relevantSpells.forEach((spell) => {
-      const activationType = getActivationType(spell.data.activation?.type);
+      const activationType = getActivationType(spell.data.data.activation?.type);
 
       actionsData[activationType].add(spell);
     });
@@ -78,12 +78,12 @@ export function getActorActionsData(actor: Actor5eCharacter) {
 
   try {
     const activeFeatures: Item5e[] = actor.items.filter((item: Item5e) => {
-      return item.type === 'feat' && item.data.activation?.type !== '';
+      return item.type === 'feat' && item.data.data.activation?.type !== '';
     });
 
     // MUTATES actionsData
     activeFeatures.forEach((item) => {
-      const activationType = getActivationType(item.data.activation?.type);
+      const activationType = getActivationType(item.data.data.activation?.type);
 
       actionsData[activationType].add(item);
     });

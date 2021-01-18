@@ -28,7 +28,14 @@ interface ItemData5e extends ItemData {
 }
 
 interface Item5e extends Item<ItemData5e> {
-  data: ItemData5e;
+  data: {
+    data: ItemData5e;
+    labels: Record<string, string>;
+    type: ItemType5e;
+    name: string;
+    flags: Record<string, any>;
+    img: string;
+  };
   labels: Record<string, string>;
   type: ItemType5e;
 }

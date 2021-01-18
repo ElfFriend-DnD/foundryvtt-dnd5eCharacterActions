@@ -6,16 +6,16 @@
 <li class="items-header flexrow">
   <h3 class="item-name flexrow">{{label}}</h3>
 
-  <div class="item-detail">{{localize "DND5E.Range"}}</div>
+  <div class="item-detail action-range">{{localize "DND5E.Range"}}</div>
 
-  <div class="item-detail">{{localize "CSA5E.HitDC"}}</div>
-  <div class="item-detail">{{localize "DND5E.Damage"}}</div>
+  <div class="item-detail to-hit-cell">{{localize "CSA5E.HitDC"}}</div>
+  <div class="item-detail damage-cell">{{localize "DND5E.Damage"}}</div>
 </li>
 <ol class="item-list">
   {{#each items as |item|}}
 
   <li class="item flexrow" data-item-id="{{item._id}}">
-    <div class="item-name flexrow rollable {{#if (eq item.type 'feat')}}feat-name-hack{{/if}}">
+    <div class="item-name flexrow rollable">
       <div class="item-image" style="background-image: url({{item.img}})"></div>
       <h4>{{item.name}}</h4>
 
@@ -33,7 +33,7 @@
       {{/if}}
     </div>
 
-    <div>
+    <div class="to-hit-cell">
       {{#if (or labels.save labels.toHit)}}
       {{#unless (or (eq labels.save "") (eq labels.save undefined))}}
       <span>{{labels.save}}</span>

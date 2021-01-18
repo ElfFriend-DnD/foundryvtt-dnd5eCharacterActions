@@ -47,6 +47,11 @@ async function addActionsTab(
   html,
   data: ActorSheet5eCharacterSheetData
 ) {
+  // check if what is rendering this is an Application
+  if (!!app.appId && actionsActionsListRenderers.has(app.appId)) {
+    return;
+  }
+
   // Update the nav menu
   const actionsTabButton = $('<a class="item" data-tab="actions">' + game.i18n.localize(`DND5E.ActionPl`) + '</a>');
   const tabs = html.find('.tabs[data-group="primary"]');
@@ -61,16 +66,26 @@ async function addActionsTab(
   const actionsTabHtml = $(await renderActionsList(app.object, app.appId));
   actionsTab.append(actionsTabHtml);
 
-  //@ts-ignore
-  app.activateListeners(html);
+  // listeners
+  // @ts-ignore
+  actionsTabHtml.find('.item .item-image').click((event) => app._onItemRoll(event));
+  // @ts-ignore
+  actionsTabHtml.find('.item .item-name.rollable h4').click((event) => app._onItemSummary(event));
 
   // add this appId to the list of renderers
   actionsActionsListRenderers.add(app.appId);
 }
 
-async function cleanupActionsTab(app: Application, html, data: ActorSheet5eCharacterSheetData) {
+function cleanupActionsTab(appId) {
+  log(false, 'cleanupActionsTab pre', {
+    actionsActionsListRenderers,
+    appId,
+  });
   // add this appId to the list of renderers
-  actionsActionsListRenderers.delete(app.appId);
+  actionsActionsListRenderers.delete(appId);
+  log(false, 'cleanupActionsTab post', {
+    actionsActionsListRenderers,
+  });
 }
 
 async function renderActionsList(actorData: Actor5eCharacter, appId) {
@@ -125,6 +140,7 @@ Hooks.on('renderActorSheet5e', (app, html, data) => {
     app,
     html,
     data,
+    actionsActionsListRenderers,
   });
 
   addActionsTab(app, html, data);
@@ -135,9 +151,21 @@ Hooks.on('closeActorSheet5e', (app, html, data) => {
     app,
     html,
     data,
+    actionsActionsListRenderers,
   });
 
-  cleanupActionsTab(app, html, data);
+  cleanupActionsTab(app.appId);
+});
+
+Hooks.on('updateActor', (actor, diffs: any, { diff }, id) => {
+  log(false, 'updateActor hook firing', {
+    apps: actor.apps,
+    actionsActionsListRenderers,
+  });
+
+  Object.keys(actor.apps).forEach((appId) => {
+    cleanupActionsTab(Number(appId));
+  });
 });
 
 Hooks.on('renderCompactBeyond5eSheet', (...args) => {

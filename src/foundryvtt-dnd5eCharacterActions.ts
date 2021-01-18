@@ -1,8 +1,7 @@
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
-import { preloadTemplates } from './module/preloadTemplates';
-import { MODULE_ABBREV, MODULE_ID, MySettings } from './module/constants';
-import { getActivationType, getWeaponRelevantAbility, log } from './module/helpers';
+import { MODULE_ABBREV, MODULE_ID, MySettings, TEMPLATES } from './module/constants';
+import { log } from './module/helpers';
 import { getActorActionsData } from './module/getActorActionsData';
 
 Handlebars.registerHelper(`${MODULE_ABBREV}-isEmpty`, (input: Object | Array<any> | Set<any>) => {
@@ -41,7 +40,13 @@ const actionsActionsListRenderers = new Set();
  *
  * this should only be called if a sheet hasn't yet rendered the actions list themselves
  */
-async function addActionsTab(app: Application, html, data: ActorSheet5eCharacterSheetData) {
+async function addActionsTab(
+  app: Application & {
+    object: Actor5eCharacter;
+  },
+  html,
+  data: ActorSheet5eCharacterSheetData
+) {
   // Update the nav menu
   const actionsTabButton = $('<a class="item" data-tab="actions">' + game.i18n.localize(`DND5E.ActionPl`) + '</a>');
   const tabs = html.find('.tabs[data-group="primary"]');
@@ -53,8 +58,11 @@ async function addActionsTab(app: Application, html, data: ActorSheet5eCharacter
   sheetBody.prepend(actionsTab);
 
   // add the list to the tab
-  const actionsTabHtml = $(await renderActionsList(data.actor, app.appId));
+  const actionsTabHtml = $(await renderActionsList(app.object, app.appId));
   actionsTab.append(actionsTabHtml);
+
+  //@ts-ignore
+  app.activateListeners(html);
 
   // add this appId to the list of renderers
   actionsActionsListRenderers.add(app.appId);
@@ -90,7 +98,7 @@ Hooks.once('init', async function () {
   registerSettings();
 
   // Preload Handlebars templates
-  await preloadTemplates();
+  await loadTemplates(Object.values(flattenObject(TEMPLATES)));
 
   Hooks.call(`CharacterActions5eReady`);
 });

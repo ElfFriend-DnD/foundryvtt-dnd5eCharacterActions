@@ -5,6 +5,8 @@ export enum MySettings {
   limitActionsToCantrips = 'limit-actions-to-cantrips',
 }
 
-export enum MyFlags {
-  
-}
+export enum MyFlags {}
+
+export const TEMPLATES = {
+  actionList: `modules/${MODULE_ID}/templates/actor-actions-list.hbs`,
+};

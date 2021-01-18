@@ -1,5 +1,5 @@
 import { MODULE_ID, MySettings } from './constants';
-import { log, getWeaponRelevantAbility, getActivationType } from './helpers';
+import { log, getActivationType } from './helpers';
 
 export function getActorActionsData(actor: Actor5eCharacter) {
   // within each activation time, we want to display: Items which do damange, Spells which do damage, Features
@@ -11,37 +11,25 @@ export function getActorActionsData(actor: Actor5eCharacter) {
     special: new Set(),
   };
 
+  log(false, {
+    actor,
+    someItems: actor.items.filter((item: Item5e) => !!item.data.name),
+  });
+
   try {
     // digest all weapons equipped populate the actionsData appropriate categories
     const equippedWeapons: Item5e[] =
       actor.items.filter((item: Item5e) => item.type === 'weapon' && item.data.equipped) || [];
 
+    log(false, {
+      equippedWeapons,
+    });
+
     // MUTATES actionsData
     equippedWeapons.forEach((item) => {
-      debugger;
-      const attackBonus = item.data.attackBonus;
-
-      const prof = item.data.proficient ? actor.data.attributes.prof : 0;
-
-      const actionType = item.data.actionType;
-      let actionTypeBonus = 0;
-      if (actionType !== 'save') {
-        actionTypeBonus = Number(actor.data.bonuses?.[actionType]?.attack || 0);
-      }
-      const relevantAbility = getWeaponRelevantAbility(item.data, actor.data);
-      const relevantAbilityMod = actor.data.abilities[relevantAbility]?.mod;
-
-      const toHit = actionTypeBonus + relevantAbilityMod + attackBonus + prof;
-
       const activationType = getActivationType(item.data.activation?.type);
 
-      actionsData[activationType].add({
-        ...item,
-        labels: {
-          ...item.labels,
-          toHit: String(toHit),
-        },
-      });
+      actionsData[activationType].add(item);
     });
   } catch (e) {
     log(true, 'error trying to digest inventory', e);
@@ -80,27 +68,9 @@ export function getActorActionsData(actor: Actor5eCharacter) {
     // });
 
     relevantSpells.forEach((spell) => {
-      const actionType = spell.data.actionType;
       const activationType = getActivationType(spell.data.activation?.type);
 
-      let toHit: string;
-
-      // add 'toHit' as a label DANGER. Verify we aren't mutating the actor.items list.
-      if (actionType !== 'save') {
-        const actionTypeBonus = String(actor.data.bonuses?.[actionType]?.attack || 0);
-        const spellcastingMod = actor.data.abilities[actor.data.attributes.spellcasting]?.mod;
-        const prof = actor.data.attributes.prof;
-
-        toHit = String(Number(actionTypeBonus) + spellcastingMod + prof);
-      }
-
-      actionsData[activationType].add({
-        ...spell,
-        labels: {
-          ...spell.labels,
-          toHit: String(toHit),
-        },
-      });
+      actionsData[activationType].add(spell);
     });
   } catch (e) {
     log(true, 'error trying to digest spellbook', e);

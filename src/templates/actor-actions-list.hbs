@@ -15,7 +15,7 @@
   {{#each items as |item|}}
 
   <li class="item flexrow" data-item-id="{{item._id}}">
-    <div class="item-name flexrow rollable {{#if (eq item.type " feat")}}feat-name-hack{{/if}}">
+    <div class="item-name flexrow rollable {{#if (eq item.type 'feat')}}feat-name-hack{{/if}}">
       <div class="item-image" style="background-image: url({{item.img}})"></div>
       <h4>{{item.name}}</h4>
 
@@ -38,7 +38,7 @@
       {{#unless (or (eq labels.save "") (eq labels.save undefined))}}
       <span>{{labels.save}}</span>
       {{else}}
-      <span>{{numberFormat labels.toHit digits=0 sign=true}}</span>
+      <span>{{labels.toHit}}</span>
       {{/unless}}
       {{/if}}
     </div>

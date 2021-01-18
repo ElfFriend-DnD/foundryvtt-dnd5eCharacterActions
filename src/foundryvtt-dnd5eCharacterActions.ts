@@ -116,7 +116,7 @@ Hooks.once('init', async function () {
   // Preload Handlebars templates
   await loadTemplates(Object.values(flattenObject(TEMPLATES)));
 
-  globalThis[MODULE_ID] = {
+  globalThis[MODULE_ABBREV] = {
     renderActionsList,
   };
 
@@ -142,18 +142,12 @@ Hooks.once('ready', function () {
 
 // default sheet injection if this hasn't yet been injected
 Hooks.on('renderActorSheet5e', (app, html, data) => {
-  if (actionsActionsListRenderers.has(app.appId)) {
-    return;
-  }
-
   log(false, 'default sheet open hook firing', {
     app,
     html,
     data,
     actionsActionsListRenderers,
   });
-
-  addActionsTab(app, html, data);
 
   // hacky way to make default sheet injection work
   // danger for duplicating on other sheets using the api correctly?
@@ -179,6 +173,17 @@ Hooks.on('renderActorSheet5e', (app, html, data) => {
     });
   });
 
+  Hooks.once('deleteOwnedItem', (actor) => {
+    log(false, 'updateOwnedItem hook firing', {
+      apps: actor.apps,
+      actionsActionsListRenderers,
+    });
+
+    Object.keys(actor.apps).forEach((appId) => {
+      cleanupActionsTab(Number(appId));
+    });
+  });
+
   Hooks.once('closeActorSheet5e', (app, html, data) => {
     log(false, 'default sheet close hook firing', {
       app,
@@ -189,4 +194,10 @@ Hooks.on('renderActorSheet5e', (app, html, data) => {
 
     cleanupActionsTab(app.appId);
   });
+
+  if (actionsActionsListRenderers.has(app.appId)) {
+    return;
+  }
+
+  addActionsTab(app, html, data);
 });

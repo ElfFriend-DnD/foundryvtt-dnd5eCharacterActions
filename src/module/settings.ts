@@ -7,11 +7,20 @@ export const registerSettings = function () {
 
   // Register any custom module settings here
   game.settings.register(MODULE_ID, MySettings.limitActionsToCantrips, {
-    name: `${MODULE_ABBREV}.limitActionsToCantrips`,
+    name: `${MODULE_ABBREV}.settings.limitActionsToCantrips.Label`,
     default: false,
     type: Boolean,
     scope: 'client',
     config: true,
-    hint: `${MODULE_ABBREV}.limitActionsToCantripsHint`,
+    hint: `${MODULE_ABBREV}.settings.limitActionsToCantrips.Hint`,
+  });
+
+  game.settings.register(MODULE_ID, MySettings.includeOneMinuteSpells, {
+    name: `${MODULE_ABBREV}.settings.includeOneMinuteSpells.Label`,
+    default: true,
+    type: Boolean,
+    scope: 'client',
+    config: true,
+    hint: `${MODULE_ABBREV}.settings.includeOneMinuteSpells.Hint`,
   });
 };

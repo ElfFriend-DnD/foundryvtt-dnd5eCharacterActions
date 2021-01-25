@@ -43,6 +43,10 @@ export function getActorActionsData(actor: Actor5eCharacter) {
       const isSpell = item.type === 'spell';
       const isPrepared = item.data.data.preparation?.mode === 'always' || item.data.data.preparation?.prepared;
 
+      if (game.settings.get(MODULE_ID, MySettings.limitActionsToCantrips)) {
+        return isSpell && isPrepared && item.data.data.level === 0;
+      }
+
       return isSpell && isPrepared;
     });
 
@@ -50,10 +54,10 @@ export function getActorActionsData(actor: Actor5eCharacter) {
       const isReaction = spell.data.data.activation?.type === 'reaction';
       //ASSUMPTION: If the spell causes damage, it will have damageParts
       const isDamageDealer = spell.data.data.damage?.parts?.length > 0;
-      const isCantrip = spell.data.data.level === 0;
+      const isOneMinuter = spell.data.data?.duration?.units === 'minute' && spell.data.data?.duration?.value === 1;
 
-      if (game.settings.get(MODULE_ID, MySettings.limitActionsToCantrips)) {
-        return isCantrip && (isReaction || isDamageDealer);
+      if (game.settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
+        return isReaction || isDamageDealer || isOneMinuter;
       }
 
       return isReaction || isDamageDealer;

@@ -3,6 +3,7 @@ export const MODULE_ABBREV = 'CAL5E';
 
 export enum MySettings {
   limitActionsToCantrips = 'limit-actions-to-cantrips',
+  includeOneMinuteSpells = 'include-one-minute-spells',
 }
 
 export enum MyFlags {}

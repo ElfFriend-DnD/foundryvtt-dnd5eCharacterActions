@@ -14,6 +14,10 @@ interface ItemData5e extends ItemData {
   damage?: {
     parts: string[][];
   };
+  duration?: {
+    units: string;
+    value: number;
+  };
   equipped?: boolean;
   level?: number; // spell level if applicable
   preparation?: {

@@ -1,30 +1,29 @@
 @import './mixins';
 @import './variables';
 
-.actions {
-  .item-name {
-    flex: 2;
-  }
-
-  .inventory-header {
-    .item-detail {
-      flex: 1;
-    }
+.item-detail {
+  > * {
+    max-width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
 .action-range {
   flex-basis: 100px;
   flex-direction: column;
-  text-overflow: ellipsis;
+  display: flex;
+}
+
+.item-uses {
+  flex-direction: column;
+  display: flex;
 }
 
 .damage-cell {
   flex-basis: 100px;
-  text-overflow: ellipsis;
 }
 
 .to-hit-cell {
   flex-basis: 100px;
-  text-overflow: ellipsis;
 }

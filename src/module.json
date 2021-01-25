@@ -21,8 +21,9 @@
       "path": "lang/en.json"
     }
   ],
-  "minimumCoreVersion": "0.7.5",
-  "compatibleCoreVersion": "0.7.5",
+  "minimumCoreVersion": "0.7.9",
+  "minimumSystemVersion": "1.2.1",
+  "compatibleCoreVersion": "0.7.9",
   "bugs": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/issues",
   "changelog": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases",
   "download": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v0.1.0/module.zip",

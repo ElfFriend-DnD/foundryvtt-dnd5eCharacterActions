@@ -19,15 +19,21 @@
       <div class="item-image" style="background-image: url({{item.img}})"></div>
       <h4>{{item.name}}</h4>
 
-      {{#if item.data.uses.per }}
-      <div class="item-detail spell-uses">Uses {{item.data.uses.value}} / {{item.data.uses.max}}</div>
+      {{log item}}
+
+      {{#if item.data.hasUses }}
+      <div class="item-detail item-uses" title="{{localize 'DND5E.Uses'}}">
+        <span>{{item.data.data.uses.value}} /
+          {{item.data.data.uses.max}}</span>
+        <small>{{localize "DND5E.Uses"}}</small>
+      </div>
       {{/if}}
     </div>
 
-    <div class="item-detail action-range flexcol">
-      <span>{{labels.range}}</span>
+    <div class="item-detail action-range">
+      <span title="{{labels.range}}">{{labels.range}}</span>
       {{#if labels.target}}
-      <small>
+      <small title="{{labels.target}}">
         {{labels.target}}
       </small>
       {{/if}}
@@ -36,15 +42,15 @@
     <div class="item-detail to-hit-cell">
       {{#if (or labels.save labels.toHit)}}
       {{#unless (or (eq labels.save "") (eq labels.save undefined))}}
-      <span>{{labels.save}}</span>
+      <span title="{{labels.save}}">{{labels.save}}</span>
       {{else}}
-      <span>{{labels.toHit}}</span>
+      <span title="{{labels.toHit}}">{{labels.toHit}}</span>
       {{/unless}}
       {{/if}}
     </div>
 
     <div class="item-detail damage-cell">
-      {{labels.damage}} {{labels.damageTypes}}
+      <span title="{{labels.damage}} {{labels.damageTypes}}">{{labels.damage}} {{labels.damageTypes}}</span>
     </div>
   </li>
   {{/each}}

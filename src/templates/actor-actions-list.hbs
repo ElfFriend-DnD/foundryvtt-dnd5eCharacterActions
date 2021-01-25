@@ -2,13 +2,13 @@
 
 {{#*inline 'action-sublist'}}
 {{log 'character-actions-list-5e' 'action-sublist items' items}}
-{{#unless (CSA5E-isEmpty items)}}
+{{#unless (CAL5E-isEmpty items)}}
 <li class="items-header flexrow">
   <h3 class="item-name flexrow">{{label}}</h3>
 
   <div class="item-detail action-range">{{localize "DND5E.Range"}}</div>
 
-  <div class="item-detail to-hit-cell">{{localize "CSA5E.HitDC"}}</div>
+  <div class="item-detail to-hit-cell">{{localize "CAL5E.HitDC"}}</div>
   <div class="item-detail damage-cell">{{localize "DND5E.Damage"}}</div>
 </li>
 <ol class="item-list">

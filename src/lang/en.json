@@ -1,6 +1,6 @@
 {
-  "CSA5E.HitDC": "Hit / DC",
+  "CAL5E.HitDC": "Hit / DC",
 
-  "CSA5E.limitActionsToCantrips": "Limit Actions to Cantrips",
-  "CSA5E.limitActionsToCantripsHint": "Instead of showing all spells that deal damage in the Actions tab, limit it to only cantrips. This is the default D&DBeyond behavior."
+  "CAL5E.limitActionsToCantrips": "Limit Actions to Cantrips",
+  "CAL5E.limitActionsToCantripsHint": "Instead of showing all spells that deal damage in the Actions tab, limit it to only cantrips. This is the default D&DBeyond behavior."
 }

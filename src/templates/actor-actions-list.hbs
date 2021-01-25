@@ -1,7 +1,4 @@
-{{!-- props: {items: oneof sheetData.actionsData; label: string;} --}}
-
 {{#*inline 'action-sublist'}}
-{{log 'character-actions-list-5e' 'action-sublist items' items}}
 {{#unless (CAL5E-isEmpty items)}}
 <li class="items-header flexrow">
   <h3 class="item-name flexrow">{{label}}</h3>
@@ -18,8 +15,6 @@
     <div class="item-name flexrow rollable">
       <div class="item-image" style="background-image: url({{item.img}})"></div>
       <h4>{{item.name}}</h4>
-
-      {{log item}}
 
       {{#if item.data.hasUses }}
       <div class="item-detail item-uses" title="{{localize 'DND5E.Uses'}}">
@@ -58,7 +53,6 @@
 {{/unless}}
 {{/inline}}
 
-{{log 'character-actions-list-5e' 'this' this}}
 <ol class="character-actions-dnd5e items-list inventory-list">
   {{!-- Actions --}}
   {{> action-sublist items=action label=(localize "DND5E.Action") }}

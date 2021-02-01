@@ -28,20 +28,19 @@ https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/lates
 
 ### Compatibility
 
-I'm honestly not sure how well this will play with modules that affect character sheets, I'll try to test as many as possible but if something is obviously breaking please create and issue here and I'll see what I can do.
+I'm honestly not sure how well this will play with modules that affect character sheets or dice rolls, I'll try to test as many as possible but if something is obviously breaking please create and issue here and I'll see what I can do.
 
-| **Name**                                                                    |  Works  | Notes |
-| --------------------------------------------------------------------------- | :-----: | ----- |
-| [Better Rolls 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)     | :shrug: |       |
-| [Midi-QOL](https://gitlab.com/tposney/midi-qol)                             | :shrug: |       |
-| [Minor QOL](https://gitlab.com/tposney/minor-qol)                           | :shrug: |       |
-| [FoundryVTT Magic Items](https://gitlab.com/riccisi/foundryvtt-magic-items) | :shrug: |       |
-| [D&D5e Dark Mode](https://github.com/Stryxin/dnd5edark-foundryvtt)          | :shrug: |       |
-| [Inventory+](https://github.com/syl3r86/inventory-plus)                     | :shrug: |       |
+| **Name**                                                                                            |       Works        | Notes                                                             |
+| --------------------------------------------------------------------------------------------------- | :----------------: | ----------------------------------------------------------------- |
+| [Better Rolls 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)                             |        :x:         | Listeners are not activated correctly.                            |
+| [Midi-QOL](https://gitlab.com/tposney/midi-qol)                                                     | :white_check_mark: | Works as expected.                                                |
+| [Minimal Roll Enhancements](https://github.com/schultzcole/FVTT-Minimal-Rolling-Enhancements-DND5E) | :white_check_mark: | Works as expected.                                                |
+| [FoundryVTT Magic Items](https://gitlab.com/riccisi/foundryvtt-magic-items)                         |      :shrug:       | Spells assigned to magic items do not appear in the Actions List. |
+| [Inventory+](https://github.com/syl3r86/inventory-plus)                                             | :white_check_mark: | Inventory+ organization has no effect on Actions Tab              |
 
 ## Known Issues
 
-- Plenty
+- There is an interaction with Better Rolls 5e that makes the Actions Tab items not roll "better-y" but causes other items to roll double.
 
 ## Acknowledgements
 

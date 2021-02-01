@@ -32,15 +32,15 @@ I'm honestly not sure how well this will play with modules that affect character
 
 | **Name**                                                                                            |       Works        | Notes                                                             |
 | --------------------------------------------------------------------------------------------------- | :----------------: | ----------------------------------------------------------------- |
-| [Better Rolls 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)                             |        :x:         | Listeners are not activated correctly.                            |
+| [Better Rolls 5e](https://github.com/RedReign/FoundryVTT-BetterRolls5e)                             | :white_check_mark: | Compatible with version 1.3.7+.                                   |
 | [Midi-QOL](https://gitlab.com/tposney/midi-qol)                                                     | :white_check_mark: | Works as expected.                                                |
 | [Minimal Roll Enhancements](https://github.com/schultzcole/FVTT-Minimal-Rolling-Enhancements-DND5E) | :white_check_mark: | Works as expected.                                                |
+| [Mars 5e](https://github.com/Moerill/fvtt-mars-5e)                                                  | :white_check_mark: | Works as expected.                                                |
 | [FoundryVTT Magic Items](https://gitlab.com/riccisi/foundryvtt-magic-items)                         |      :shrug:       | Spells assigned to magic items do not appear in the Actions List. |
 | [Inventory+](https://github.com/syl3r86/inventory-plus)                                             | :white_check_mark: | Inventory+ organization has no effect on Actions Tab              |
 
 ## Known Issues
-
-- There is an interaction with Better Rolls 5e that makes the Actions Tab items not roll "better-y" but causes other items to roll double.
+- Using an item which changes charges or spell slots on any sheet that does not natively implement CharacterActions causes the tab to change.
 
 ## Acknowledgements
 

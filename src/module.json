@@ -1,33 +1,37 @@
 {
-  "name": "character-actions-list-5e",
-  "title": "Character Actions List dnd5e",
-  "description": "Provides an Actions List Component",
-  "systems": ["dnd5e"],
-  "version": "0.1.0",
-  "author": "Andrew Krigline (akrigline)",
-  "authors": [
-    {
-      "name": "Andrew Krigline",
-      "discord": "Calego#0914",
-      "url": "https://github.com/ElfFriend-DnD"
-    }
-  ],
-  "esmodules": ["foundryvtt-dnd5eCharacterActions.js"],
-  "styles": ["foundryvtt-dnd5eCharacterActions.css"],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
-  "minimumCoreVersion": "0.7.9",
-  "minimumSystemVersion": "1.2.1",
-  "compatibleCoreVersion": "0.7.9",
-  "bugs": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/issues",
-  "changelog": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases",
-  "download": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v0.1.0/module.zip",
-  "manifest": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/latest/download/module.json",
-  "readme": "https://raw.githubusercontent.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/main/README.md",
-  "url": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions"
+	"name": "character-actions-list-5e",
+	"title": "Character Actions List dnd5e",
+	"description": "Provides an Actions List Component",
+	"systems": ["dnd5e"],
+	"version": "1.0.0",
+	"author": "Andrew Krigline (akrigline)",
+	"authors": [
+		{
+			"name": "Andrew Krigline",
+			"discord": "Calego#0914",
+			"url": "https://github.com/ElfFriend-DnD"
+		}
+	],
+	"esmodules": [
+		"foundryvtt-dnd5eCharacterActions.js"
+	],
+	"styles": [
+		"foundryvtt-dnd5eCharacterActions.css"
+	],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"minimumCoreVersion": "0.7.9",
+	"minimumSystemVersion": "1.2.1",
+	"compatibleCoreVersion": "0.7.9",
+	"bugs": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/issues",
+	"changelog": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases",
+	"download": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v1.0.0/module.zip",
+	"manifest": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/latest/download/module.json",
+	"readme": "https://raw.githubusercontent.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/main/README.md",
+	"url": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions"
 }

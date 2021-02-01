@@ -17,14 +17,43 @@ Module JSON:
 https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/latest/download/module.json
 ```
 
-## Gallery
-
-
 ## Added Scene Config Options
 
 | **Name**                      | Description                                                                                                                                      |
 | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Limit Actions to Cantrips** | Path to the file that will be used for the Unexplored Fog. This image should be the same size as your background image or stretching will occur. |
+
+
+## API
+
+After the hook `CharacterActions5eReady` is fired, the following api methods are expected to be available on the `globalThis`: `CAL5E`:
+
+### `async renderActionsList(actorData: Actor5eCharacter, appId: number): HTMLElement`
+
+Returns the output of `renderTemplate` (an `HTMLElement`) after getting the provided actor's action data. This can then be injected wherever in your own DOM.
+
+### Example:
+
+```ts
+class MyCoolCharacterSheet extends ActorSheet5e {
+  
+  // other stuff your sheet module does...
+
+  async activateListeners(html) {
+    try {
+      const actionsTab = html.find('.actions');
+
+      const actionsTabHtml = $(await CAL5E.renderActionsList(this.actor, this.appId));
+
+      actionsTab.html(actionsTabHtml);
+    } catch (e) {
+      log(true, e);
+    }
+
+    super.activateListeners(html);
+  }
+}
+```
 
 
 ### Compatibility

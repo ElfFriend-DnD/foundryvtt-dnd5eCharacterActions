@@ -184,6 +184,39 @@ Hooks.on('renderActorSheet5e', (app, html, data) => {
     });
   });
 
+  Hooks.once('updateActiveEffect', (actor) => {
+    log(false, 'updateOwnedItem hook firing', {
+      apps: actor.apps,
+      actionsActionsListRenderers,
+    });
+
+    Object.keys(actor.apps).forEach((appId) => {
+      cleanupActionsTab(Number(appId));
+    });
+  });
+
+  Hooks.once('deleteActiveEffect', (actor) => {
+    log(false, 'updateOwnedItem hook firing', {
+      apps: actor.apps,
+      actionsActionsListRenderers,
+    });
+
+    Object.keys(actor.apps).forEach((appId) => {
+      cleanupActionsTab(Number(appId));
+    });
+  });
+
+  Hooks.once('createActiveEffect', (actor) => {
+    log(false, 'updateOwnedItem hook firing', {
+      apps: actor.apps,
+      actionsActionsListRenderers,
+    });
+
+    Object.keys(actor.apps).forEach((appId) => {
+      cleanupActionsTab(Number(appId));
+    });
+  });
+
   Hooks.once('closeActorSheet5e', (app, html, data) => {
     log(false, 'default sheet close hook firing', {
       app,
@@ -194,6 +227,8 @@ Hooks.on('renderActorSheet5e', (app, html, data) => {
 
     cleanupActionsTab(app.appId);
   });
+
+  // this is awful... need to find a better way to handle cleanup
 
   if (actionsActionsListRenderers.has(app.appId)) {
     return;

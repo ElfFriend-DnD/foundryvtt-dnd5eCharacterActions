@@ -1,7 +1,7 @@
 {
 	"private": true,
 	"name": "foundryvtt-dnd5eCharacterActions",
-	"version": "1.0.1",
+	"version": "2.0.0",
 	"description": "A module that provides a reusable and placable component detailing a given actor's actions.",
 	"scripts": {
 		"publish": "gulp publish",

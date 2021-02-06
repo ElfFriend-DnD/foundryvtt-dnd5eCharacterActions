@@ -39,18 +39,19 @@ class MyCoolCharacterSheet extends ActorSheet5e {
   
   // other stuff your sheet module does...
 
-  async activateListeners(html) {
+  async _renderInner(...args) {
+    const html = await super._renderInner(...args);
+
     try {
       const actionsTab = html.find('.actions');
 
-      const actionsTabHtml = $(await CAL5E.renderActionsList(this.actor, this.appId));
-
+      const actionsTabHtml = $(await CAL5E.renderActionsList(this.actor));
       actionsTab.html(actionsTabHtml);
     } catch (e) {
       log(true, e);
     }
 
-    super.activateListeners(html);
+    return html;
   }
 }
 ```

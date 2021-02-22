@@ -52,24 +52,18 @@ export function getActorActionsData(actor: Actor5eCharacter) {
 
     const relevantSpells = preparedSpells.filter((spell) => {
       const isReaction = spell.data.data.activation?.type === 'reaction';
+      const isBonusAction = spell.data.data.activation?.type === 'bonus';
+
       //ASSUMPTION: If the spell causes damage, it will have damageParts
       const isDamageDealer = spell.data.data.damage?.parts?.length > 0;
       const isOneMinuter = spell.data.data?.duration?.units === 'minute' && spell.data.data?.duration?.value === 1;
 
       if (game.settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
-        return isReaction || isDamageDealer || isOneMinuter;
+        return isReaction || isBonusAction || isDamageDealer || isOneMinuter;
       }
 
-      return isReaction || isDamageDealer;
+      return isReaction || isBonusAction || isDamageDealer;
     });
-
-    // const reactions = preparedSpells.filter((spell) => {
-    //   return spell.data.activation?.type === 'reaction';
-    // });
-
-    // const damageDealers = preparedSpells.filter((spell) => {
-    //   return spell.data.damage?.parts?.length > 0;
-    // });
 
     relevantSpells.forEach((spell) => {
       const activationType = getActivationType(spell.data.data.activation?.type);

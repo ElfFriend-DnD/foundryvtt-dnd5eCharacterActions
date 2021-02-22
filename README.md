@@ -17,12 +17,12 @@ Module JSON:
 https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/latest/download/module.json
 ```
 
-## Added Scene Config Options
+## Options
 
-| **Name**                      | Description                                                                                                                                      |
-| ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Limit Actions to Cantrips** | Path to the file that will be used for the Unexplored Fog. This image should be the same size as your background image or stretching will occur. |
-
+| **Name**                                  | Description                                                                                                                              |
+| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| **Limit Actions to Cantrips**             | Instead of showing all spells that deal damage in the Actions tab, limit it to only cantrips. This is the default D&DBeyond behavior.    |
+| **Include Minute-long Spells as Actions** | Include spells with a duration of one minute and an activation time of 1 Action or 1 Bonus Action in the Actions tab (e.g. Bless, Bane). |
 
 ## API
 

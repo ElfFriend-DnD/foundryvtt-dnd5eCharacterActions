@@ -17,9 +17,9 @@ export function getActorActionsData(actor: Actor5eCharacter) {
   });
 
   try {
-    // digest all weapons equipped populate the actionsData appropriate categories
+    // digest all weapons and equipment that are equipped populate the actionsData appropriate categories
     const equippedWeapons: Item5e[] =
-      actor.items.filter((item: Item5e) => item.type === 'weapon' && item.data.data.equipped) || [];
+      actor.items.filter((item: Item5e) => (item.type === 'weapon' || item.type === 'equipment') && item.data.data.equipped) || [];
 
     log(false, {
       equippedWeapons,

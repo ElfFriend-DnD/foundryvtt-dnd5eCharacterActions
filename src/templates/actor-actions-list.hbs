@@ -16,11 +16,24 @@
       <div class="item-image" style="background-image: url({{item.img}})"></div>
       <h4>{{item.name}}</h4>
 
-      {{#if item.data.hasUses }}
+      {{#if (or item.data.isOnCooldown item.data.data.recharge.value item.data.hasUses)}}
       <div class="item-detail item-uses" title="{{localize 'DND5E.Uses'}}">
-        <span>{{item.data.data.uses.value}} /
-          {{item.data.data.uses.max}}</span>
+
+        {{#if item.data.isOnCooldown}}
+
+        <a class="item-recharge rollable">{{item.labels.recharge}}</a>
+
+        {{else if item.data.data.recharge.value}}
+
+        {{localize "DND5E.Charged"}}
+
+        {{else if item.data.hasUses}}
+
+        {{item.data.data.uses.value}} / {{item.data.data.uses.max}}
         <small>{{localize "DND5E.Uses"}}</small>
+
+        {{/if}}
+
       </div>
       {{/if}}
     </div>

@@ -20,3 +20,13 @@ export function getActivationType(activationType?: string) {
       return 'special';
   }
 }
+
+export function isActiveItem(activationType?: string) {
+  if (!activationType) {
+    return false;
+  }
+  if (['minute', 'hour', 'day'].includes(activationType)) {
+    return false;
+  }
+  return true;
+}

@@ -1,5 +1,5 @@
 import { MODULE_ID, MySettings } from './constants';
-import { log, getActivationType } from './helpers';
+import { log, getActivationType, isActiveItem } from './helpers';
 
 export function getActorActionsData(actor: Actor5eCharacter) {
   // within each activation time, we want to display: Items which do damange, Spells which do damage, Features
@@ -19,7 +19,7 @@ export function getActorActionsData(actor: Actor5eCharacter) {
   try {
     // digest all weapons and equipment that are equipped populate the actionsData appropriate categories
     const equippedWeapons: Item5e[] =
-      actor.items.filter((item: Item5e) => (item.type === 'weapon' || item.type === 'equipment') && item.data.data.equipped) || [];
+      actor.items.filter((item: Item5e) => item.type === 'weapon' && item.data.data.equipped) || [];
 
     log(false, {
       equippedWeapons,
@@ -32,7 +32,29 @@ export function getActorActionsData(actor: Actor5eCharacter) {
       actionsData[activationType].add(item);
     });
   } catch (e) {
-    log(true, 'error trying to digest inventory', e);
+    log(true, 'error trying to digest weapons', e);
+  }
+
+  try {
+    // digest all weapons and equipment that are equipped populate the actionsData appropriate categories
+    const equippedEquipment: Item5e[] =
+      actor.items.filter(
+        (item: Item5e) =>
+          item.type === 'equipment' && item.data.data.equipped && isActiveItem(item.data.data.activation?.type)
+      ) || [];
+
+    log(false, {
+      equippedEquipment,
+    });
+
+    // MUTATES actionsData
+    equippedEquipment.forEach((item) => {
+      const activationType = getActivationType(item.data.data.activation?.type);
+
+      actionsData[activationType].add(item);
+    });
+  } catch (e) {
+    log(true, 'error trying to digest equipment', e);
   }
 
   try {

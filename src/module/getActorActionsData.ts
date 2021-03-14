@@ -57,6 +57,29 @@ export function getActorActionsData(actor: Actor5eCharacter) {
     log(true, 'error trying to digest equipment', e);
   }
 
+  if (game.settings.get(MODULE_ID, MySettings.includeConsumables)) {
+    try {
+      // digest all weapons and equipment that are equipped populate the actionsData appropriate categories
+      const activeConsumables: Item5e[] =
+        actor.items.filter(
+          (item: Item5e) => item.type === 'consumable' && isActiveItem(item.data.data.activation?.type)
+        ) || [];
+
+      log(false, {
+        activeConsumables,
+      });
+
+      // MUTATES actionsData
+      activeConsumables.forEach((item) => {
+        const activationType = getActivationType(item.data.data.activation?.type);
+
+        actionsData[activationType].add(item);
+      });
+    } catch (e) {
+      log(true, 'error trying to digest equipment', e);
+    }
+  }
+
   try {
     // digest all prepared spells and populate the actionsData appropriate categories
     // MUTATES actionsData

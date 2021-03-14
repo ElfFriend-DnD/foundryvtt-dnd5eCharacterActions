@@ -23,4 +23,13 @@ export const registerSettings = function () {
     config: true,
     hint: `${MODULE_ABBREV}.settings.includeOneMinuteSpells.Hint`,
   });
+
+  game.settings.register(MODULE_ID, MySettings.includeConsumables, {
+    name: `${MODULE_ABBREV}.settings.includeConsumables.Label`,
+    default: true,
+    type: Boolean,
+    scope: 'client',
+    config: true,
+    hint: `${MODULE_ABBREV}.settings.includeConsumables.Hint`,
+  });
 };

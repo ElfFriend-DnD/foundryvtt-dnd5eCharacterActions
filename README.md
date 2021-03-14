@@ -14,7 +14,7 @@
 [![patreon](https://img.shields.io/badge/-patreon-%23FF424D)](https://www.patreon.com/ElfFriend_DnD)
 
 
-This module provides a placable reusable "component" which details all of the actions a given Character Actor can take, intending to replicate the Actions Tab of the D&DBeyond character sheet. The module has two ways in which it can be used: it will either inject the actions tab itself, or another module can leverage the API it provides and use that to inject the proper HTML wherever it desires.
+This module provides a placable reusable "component" which details all of the actions a given Character Actor can take, intending to replicate the list in the Actions Tab of the D&DBeyond character sheet. The module has two ways in which it can be used: it will either inject the actions tab itself, or another module can leverage the API it provides and use that to inject the proper HTML wherever it desires.
 
 ## Installation
 
@@ -26,10 +26,11 @@ https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/lates
 
 ## Options
 
-| **Name**                                  | Description                                                                                                                              |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| **Limit Actions to Cantrips**             | Instead of showing all spells that deal damage in the Actions tab, limit it to only cantrips. This is the default D&DBeyond behavior.    |
-| **Include Minute-long Spells as Actions** | Include spells with a duration of one minute and an activation time of 1 Action or 1 Bonus Action in the Actions tab (e.g. Bless, Bane). |
+| **Name**                                  | Description                                                                                                                               |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| **Limit Actions to Cantrips**             | Instead of showing all spells that deal damage in the Actions list, limit it to only cantrips. This is the default D&DBeyond behavior.    |
+| **Include Minute-long Spells as Actions** | Include spells with a duration of one minute and an activation time of 1 Action or 1 Bonus Action in the Actions list (e.g. Bless, Bane). |
+| **Include Consumables as Actions**        | Include consumables which have an activation type (Action, Bonus Action, etc) in the Actions list.                                        |
 
 ## API
 

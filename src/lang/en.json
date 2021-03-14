@@ -1,16 +1,18 @@
 {
   "CAL5E": {
     "HitDC": "Hit / DC",
-
     "settings": {
       "limitActionsToCantrips": {
         "Label": "Limit Actions to Cantrips",
         "Hint": "Instead of showing all spells that deal damage in the Actions tab/panel, limit it to only cantrips. This is the default D&DBeyond behavior."
       },
-
       "includeOneMinuteSpells": {
         "Label": "Include Minute-long Spells as Actions",
         "Hint": "Include spells with a duration of one minute and an activation time of 1 Action or 1 Bonus Action in the Actions tab/panel."
+      },
+      "includeConsumables": {
+        "Label": "Include Consumables as Actions",
+        "Hint": "Include consumables which have an activation type (Action, Bonus Action, etc) in the Actions list."
       }
     }
   }

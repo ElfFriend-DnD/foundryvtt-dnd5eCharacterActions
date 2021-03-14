@@ -115,3 +115,7 @@ Hooks.on('renderActorSheet5e', (app, html, data) => {
 
   addActionsTab(app, html, data);
 });
+
+Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {
+  registerPackageDebugFlag(MODULE_ID);
+});

@@ -7,7 +7,9 @@ export enum MySettings {
   includeConsumables = 'include-consumables',
 }
 
-export enum MyFlags {}
+export enum MyFlags {
+  filterOverride = 'filter-override',
+}
 
 export const TEMPLATES = {
   actionList: `modules/${MODULE_ID}/templates/actor-actions-list.hbs`,

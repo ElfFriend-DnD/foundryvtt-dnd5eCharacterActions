@@ -16,6 +16,29 @@
 
 This module provides a placable reusable "component" which details all of the actions a given Character Actor can take, intending to replicate the list in the Actions Tab of the D&DBeyond character sheet. The module has two ways in which it can be used: it will either inject the actions tab itself, or another module can leverage the API it provides and use that to inject the proper HTML wherever it desires.
 
+## List Features
+
+By default the list will attempt to narrow down your active abilities, items, and spells into the ones most likely to be useful in Combat. The full logic for the filter is in `isItemInActionList` inside `src/modules/helpers.ts`. Here are the basics:
+
+For Weapons:
+- Is it equipped?
+
+For Equipment:
+- Does it have an attack and is it equipped?
+
+For Consumables:
+- Does it have an attack?
+
+For Spells:
+- Does it do damage (or healing)?
+- Does it have an activation time of 1 reaction or 1 bonus action?
+- If the setting is set, does it have a duration of 1 minute?
+
+For Features:
+- Does it have an activation type?
+
+Additionally, you can override the default list by selectively including or excluding items by toggling the little Fist in item controls.
+
 ## Installation
 
 Module JSON:
@@ -34,7 +57,7 @@ https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/lates
 
 ## API
 
-After the hook `CharacterActions5eReady` is fired, the following api methods are expected to be available on the `globalThis`: `CAL5E`:
+After the hook `CharacterActions5eReady` is fired, the following api methods are expected to be available in the `game.modules` entry for this module: `game.modules.get('character-actions-list-5e').api`:
 
 ### `async renderActionsList(actorData: Actor5eCharacter, appId: number): HTMLElement`
 
@@ -43,17 +66,19 @@ Returns the output of `renderTemplate` (an `HTMLElement`) after getting the prov
 ### Example:
 
 ```ts
+
 class MyCoolCharacterSheet extends ActorSheet5e {
   
   // other stuff your sheet module does...
 
   async _renderInner(...args) {
     const html = await super._renderInner(...args);
+    const actionsListApi = game.modules.get('character-actions-list-5e').api;
 
     try {
       const actionsTab = html.find('.actions');
 
-      const actionsTabHtml = $(await CAL5E.renderActionsList(this.actor));
+      const actionsTabHtml = $(await actionsListApi.renderActionsList(this.actor));
       actionsTab.html(actionsTabHtml);
     } catch (e) {
       log(true, e);
@@ -64,6 +89,62 @@ class MyCoolCharacterSheet extends ActorSheet5e {
 }
 ```
 
+### `isItemInActionList(item: Item5e): boolean`
+A handlebars helper is provided as well in case any sheet wants an easy way to check if an Item being rendered is expected to be part of the Actions List. `CAL5E-isItemInActionList` is a simple wrapper around `isItemInActionList`, it expects the same argument of an `item` instance.
+
+### Example:
+
+```ts
+
+class MyCoolItemSheet extends ItemSheet5e {
+  
+  // other stuff your sheet module does...
+
+  getData() {
+    // const data = { someOtherStuff };
+    const actionsListApi = game.modules.get('character-actions-list-5e').api;
+
+    try {
+      data.isInActionList = actionsListApi.isItemInActionList(this.item);
+    } catch (e) {
+      log(true, e);
+    }
+
+    return data;
+  }
+}
+```
+
+### Handlebars Helper: `CAL5E-isItemInActionList`
+
+A handlebars helper is provided as well in case any sheet wants an easy way to check if an Item being rendered is expected to be part of the Actions List. `CAL5E-isItemInActionList` is a simple wrapper around `isItemInActionList`, it expects the same argument of an `item` instance.
+
+### Example:
+
+```hbs
+{{#each items as |item|}}
+  {{!-- other stuff --}}
+  {{#if (CAL5E-isItemInActionList item)}}Action{{/if}}
+{{/each}}
+```
+
+### Blocking the default Injection
+If a sheet module wants to specifically block the injection of the actions tab without implementing the actions list itself, add `blockActionsTab` to the options being passed to the FormApplication class.
+
+Note that by default, the actions tab will only inject itself if no DOM element with the class `.character-actions-dnd5e` exists in the Application being rendered.
+
+### Example:
+
+```js
+// class SomeAwesomeSheet extends SomeActorSheetClass {
+  // ...
+  // get defaultOptions() {
+    // return mergeObject(super.defaultOptions, {
+      blockActionsTab: true,
+    // ...
+```
+
+This will cause the Actions Tab's auto injection to stop before any DOM is injected.
 
 ### Compatibility
 

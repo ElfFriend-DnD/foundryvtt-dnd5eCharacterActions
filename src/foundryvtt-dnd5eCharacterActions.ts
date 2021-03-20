@@ -1,8 +1,9 @@
 // Import TypeScript modules
 import { registerSettings } from './module/settings';
 import { MODULE_ABBREV, MODULE_ID, MySettings, TEMPLATES } from './module/constants';
-import { log } from './module/helpers';
+import { isItemInActionList, log } from './module/helpers';
 import { getActorActionsData } from './module/getActorActionsData';
+import { addFavoriteControls } from './module/handleFavoriteControls';
 
 Handlebars.registerHelper(`${MODULE_ABBREV}-isEmpty`, (input: Object | Array<any> | Set<any>) => {
   if (input instanceof Array) {
@@ -14,8 +15,7 @@ Handlebars.registerHelper(`${MODULE_ABBREV}-isEmpty`, (input: Object | Array<any
   return isObjectEmpty(input);
 });
 
-// deprecated
-const actionsActionsListRenderers = new Set();
+Handlebars.registerHelper(`${MODULE_ABBREV}-isItemInActionList`, isItemInActionList);
 
 /**
  * Add the Actions Tab to Sheet HTML. Returns early if the character-actions-dnd5e element already exists
@@ -30,7 +30,7 @@ async function addActionsTab(
   const existingActionsList = $(html).find('.character-actions-dnd5e');
 
   // check if what is rendering this is an Application and if our Actions List exists within it already
-  if (!!app.appId && !!existingActionsList.length) {
+  if ((!!app.appId && !!existingActionsList.length) || app.options.blockActionsTab) {
     return;
   }
 
@@ -57,22 +57,28 @@ async function addActionsTab(
   actionsTabHtml.find('.item .item-recharge').click((event) => app._onItemRecharge(event));
 }
 
-async function renderActionsList(actorData: Actor5eCharacter, appId?: number) {
-  if (!!appId) {
-    actionsActionsListRenderers.add(appId); // deprecated
-    console.warn(
-      'providing the appId to ActionsList5e is deprecated with Character Actions List 2.0.0 and will be removed in a future update, check if your sheet module has an update'
-    );
+async function renderActionsList(
+  actorData: Actor5eCharacter,
+  options?: {
+    rollIcon?: string;
   }
-
-  const data = await getActorActionsData(actorData);
+) {
+  const actionData = await getActorActionsData(actorData);
 
   log(false, 'renderActionsList', {
     actorData,
-    data,
+    data: actionData,
   });
 
-  return renderTemplate(`modules/${MODULE_ID}/templates/actor-actions-list.hbs`, data);
+  return renderTemplate(`modules/${MODULE_ID}/templates/actor-actions-list.hbs`, {
+    actionData,
+    abilities: game.dnd5e.config.abilityAbbreviations,
+    activationTypes: {
+      ...game.dnd5e.config.abilityActivationTypes,
+      other: game.i18n.localize(`DND5E.ActionOther`),
+    },
+    rollIcon: options?.rollIcon,
+  });
 }
 
 /* ------------------------------------ */
@@ -87,35 +93,54 @@ Hooks.once('init', async function () {
   // Preload Handlebars templates
   await loadTemplates(Object.values(flattenObject(TEMPLATES)));
 
-  globalThis[MODULE_ABBREV] = {
+  game.modules.get(MODULE_ID).api = {
     renderActionsList,
+    isItemInActionList,
   };
 
-  Hooks.call(`CharacterActions5eReady`);
+  globalThis[MODULE_ABBREV] = {
+    renderActionsList: async function (...args) {
+      log(false, {
+        api: game.modules.get(MODULE_ID).api,
+      });
+
+      console.warn(
+        MODULE_ID,
+        '|',
+        'accessing the module api on globalThis is deprecated and will be removed in a future update, check if there is an update to your sheet module'
+      );
+      return game.modules.get(MODULE_ID).api?.renderActionsList(...args);
+    },
+    isItemInActionList: function (...args) {
+      console.warn(
+        MODULE_ID,
+        '|',
+        'accessing the module api on globalThis is deprecated and will be removed in a future update, check if there is an update to your sheet module'
+      );
+      return game.modules.get(MODULE_ID).api?.isItemInActionList(...args);
+    },
+  };
+
+  Hooks.call(`CharacterActions5eReady`, game.modules.get(MODULE_ID).api);
 });
 
 // default sheet injection if this hasn't yet been injected
-Hooks.on('renderActorSheet5e', (app, html, data) => {
+Hooks.on('renderActorSheet5e', async (app, html, data) => {
   log(false, 'default sheet open hook firing', {
     app,
     html,
     data,
   });
 
-  // Deprecated
-  if (actionsActionsListRenderers.has(app.appId)) {
-    return;
-  }
-
   const actionsList = $(html).find('.character-actions-dnd5e');
 
   log(false, 'actionsListExists', { actionsListExists: actionsList.length });
 
-  if (!!actionsList.length) {
-    return;
+  if (!actionsList.length) {
+    await addActionsTab(app, html, data);
   }
 
-  addActionsTab(app, html, data);
+  addFavoriteControls(app, html, data);
 });
 
 Hooks.once('devModeReady', ({ registerPackageDebugFlag }) => {

@@ -29,5 +29,13 @@
 }
 
 .to-hit-cell {
-  flex-basis: 100px;
+  flex-basis: 60px;
+  flex-direction: column;
+  display: flex;
+  text-transform: uppercase;
+}
+
+.item-controls {
+  text-align: center;
+  flex: 0 0 2em;
 }

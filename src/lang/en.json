@@ -1,6 +1,10 @@
 {
   "CAL5E": {
     "HitDC": "Hit / DC",
+    "button": {
+      "setOverrideFalse": "Remove from Actions List",
+      "setOverrideTrue": "Add to Actions List"
+    },
     "settings": {
       "limitActionsToCantrips": {
         "Label": "Limit Actions to Cantrips",

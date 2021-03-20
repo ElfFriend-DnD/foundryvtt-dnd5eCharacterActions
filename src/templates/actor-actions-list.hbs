@@ -7,13 +7,15 @@
 
   <div class="item-detail to-hit-cell">{{localize "CAL5E.HitDC"}}</div>
   <div class="item-detail damage-cell">{{localize "DND5E.Damage"}}</div>
+  <div class="item-controls">
+  </div>
 </li>
 <ol class="item-list">
   {{#each items as |item|}}
 
-  <li class="item flexrow" data-item-id="{{item._id}}">
+  <li class="item context-enabled flexrow" data-item-id="{{item._id}}">
     <div class="item-name flexrow rollable">
-      <div class="item-image" style="background-image: url({{item.img}})"></div>
+      <div class="item-image" style="background-image: url({{item.img}})">{{{ @root/rollIcon }}}</div>
       <h4>{{item.name}}</h4>
 
       {{#if (or item.data.isOnCooldown item.data.data.recharge.value item.data.hasUses)}}
@@ -50,7 +52,8 @@
     <div class="item-detail to-hit-cell">
       {{#if (or labels.save labels.toHit)}}
       {{#unless (or (eq labels.save "") (eq labels.save undefined))}}
-      <span title="{{labels.save}}">{{labels.save}}</span>
+      <span title="{{labels.save}}">{{localize DND5E.AbbreviationDC}} {{data.data.save.dc}}</span>
+      <small>{{lookup @root/abilities data.data.save.ability}}</small>
       {{else}}
       <span title="{{labels.toHit}}">{{labels.toHit}}</span>
       {{/unless}}
@@ -60,6 +63,10 @@
     <div class="item-detail damage-cell">
       <span title="{{labels.damage}} {{labels.damageTypes}}">{{labels.damage}} {{labels.damageTypes}}</span>
     </div>
+
+    <div class="item-controls context-menu">
+      {{!-- Control is Injected in handleFavoriteControls.ts --}}
+    </div>
   </li>
   {{/each}}
 </ol>
@@ -67,15 +74,7 @@
 {{/inline}}
 
 <ol class="character-actions-dnd5e items-list inventory-list">
-  {{!-- Actions --}}
-  {{> action-sublist items=action label=(localize "DND5E.Action") }}
-
-  {{!-- Bonus Actions --}}
-  {{> action-sublist items=bonus label=(localize "DND5E.BonusAction") }}
-
-  {{!-- Reactions --}}
-  {{> action-sublist items=reaction label=(localize "DND5E.Reaction") }}
-
-  {{!-- Special --}}
-  {{> action-sublist items=special label=(localize "DND5E.Special") }}
+  {{#each actionData as |data key| }}
+  {{> action-sublist items=data label=(lookup @root/activationTypes key) }}
+  {{/each}}
 </ol>

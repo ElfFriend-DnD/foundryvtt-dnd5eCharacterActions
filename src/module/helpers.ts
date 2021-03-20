@@ -45,8 +45,8 @@ export function isItemInActionList(item: Item5e) {
   }
 
   // check the old flags
-  const isFavourite = item.getFlag('favtab', 'isFavourite'); // favourite items tab
-  const isFavorite = item.getFlag('favtab', 'isFavorite'); // tidy 5e sheet
+  const isFavourite = item.data.data.flags?.favtab?.isFavourite; // favourite items tab
+  const isFavorite = item.data.data.flags?.favtab?.isFavorite; // tidy 5e sheet
 
   if (isFavourite || isFavorite) {
     return true;

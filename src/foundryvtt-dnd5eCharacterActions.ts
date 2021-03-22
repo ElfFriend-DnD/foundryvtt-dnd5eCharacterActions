@@ -48,13 +48,18 @@ async function addActionsTab(
   const actionsTabHtml = $(await renderActionsList(app.object));
   actionsTab.append(actionsTabHtml);
 
-  // listeners
-  // @ts-ignore
-  actionsTabHtml.find('.item .item-image').click((event) => app._onItemRoll(event));
   // @ts-ignore
   actionsTabHtml.find('.item .item-name.rollable h4').click((event) => app._onItemSummary(event));
-  // @ts-ignore
-  actionsTabHtml.find('.item .item-recharge').click((event) => app._onItemRecharge(event));
+
+  // owner only listeners
+  if (data.actor.owner) {
+    // @ts-ignore
+    actionsTabHtml.find('.item .item-image').click((event) => app._onItemRoll(event));
+    // @ts-ignore
+    actionsTabHtml.find('.item .item-recharge').click((event) => app._onItemRecharge(event));
+  } else {
+    actionsTabHtml.find('.rollable').each((i, el) => el.classList.remove('rollable'));
+  }
 }
 
 async function renderActionsList(
@@ -78,6 +83,7 @@ async function renderActionsList(
       other: game.i18n.localize(`DND5E.ActionOther`),
     },
     rollIcon: options?.rollIcon,
+    isOwner: actorData.owner,
   });
 }
 

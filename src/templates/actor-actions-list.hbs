@@ -7,8 +7,10 @@
 
   <div class="item-detail to-hit-cell">{{localize "CAL5E.HitDC"}}</div>
   <div class="item-detail damage-cell">{{localize "DND5E.Damage"}}</div>
+  {{#if @root/isOwner}}
   <div class="item-controls">
   </div>
+  {{/if}}
 </li>
 <ol class="item-list">
   {{#each items as |item|}}
@@ -64,9 +66,11 @@
       <span title="{{labels.damage}} {{labels.damageTypes}}">{{labels.damage}} {{labels.damageTypes}}</span>
     </div>
 
+    {{#if @root/isOwner}}
     <div class="item-controls context-menu">
       {{!-- Control is Injected in handleFavoriteControls.ts --}}
     </div>
+    {{/if}}
   </li>
   {{/each}}
 </ol>

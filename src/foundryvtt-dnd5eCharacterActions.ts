@@ -52,7 +52,7 @@ async function addActionsTab(
   actionsTabHtml.find('.item .item-name.rollable h4').click((event) => app._onItemSummary(event));
 
   // owner only listeners
-  if (data.actor.owner) {
+  if (data.owner) {
     // @ts-ignore
     actionsTabHtml.find('.item .item-image').click((event) => app._onItemRoll(event));
     // @ts-ignore

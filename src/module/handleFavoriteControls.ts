@@ -2,8 +2,8 @@ import { MODULE_ABBREV, MODULE_ID, MyFlags, MySettings } from './constants';
 import { log, getActivationType, isActiveItem, isItemInActionList } from './helpers';
 
 export function addFavoriteControls(
-  app: Application & {
-    object: Actor5eCharacter;
+  app: FormApplication & {
+    object: Actor5e;
   },
   html: JQuery,
   data: ActorSheet5eCharacterSheetData

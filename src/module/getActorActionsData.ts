@@ -1,6 +1,6 @@
 import { getActivationType, isItemInActionList, log } from './helpers';
 
-export function getActorActionsData(actor: Actor5eCharacter) {
+export function getActorActionsData(actor: Actor5e) {
   const filteredItems = actor.items.filter(isItemInActionList);
 
   const actionsData: Record<

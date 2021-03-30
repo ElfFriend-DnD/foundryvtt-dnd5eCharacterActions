@@ -22,7 +22,10 @@ Handlebars.registerHelper(`${MODULE_ABBREV}-isItemInActionList`, isItemInActionL
  */
 async function addActionsTab(
   app: Application & {
-    object: Actor5eCharacter;
+    object: Actor5e;
+    options: {
+      blockActionsTab?: boolean;
+    };
   },
   html,
   data: ActorSheet5eCharacterSheetData
@@ -63,7 +66,7 @@ async function addActionsTab(
 }
 
 async function renderActionsList(
-  actorData: Actor5eCharacter,
+  actorData: Actor5e,
   options?: {
     rollIcon?: string;
   }

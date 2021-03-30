@@ -38,15 +38,17 @@ export function isItemInActionList(item: Item5e) {
   });
 
   // check our override
-  const override = item.getFlag(MODULE_ID, MyFlags.filterOverride);
+  const override = item.getFlag(MODULE_ID, MyFlags.filterOverride) as boolean | undefined;
 
   if (override !== undefined) {
     return override;
   }
 
   // check the old flags
-  const isFavourite = item.data.data.flags?.favtab?.isFavourite; // favourite items tab
-  const isFavorite = item.data.data.flags?.favtab?.isFavorite; // tidy 5e sheet
+  //@ts-ignore
+  const isFavourite = item.data.flags?.favtab?.isFavourite; // favourite items tab
+  //@ts-ignore
+  const isFavorite = item.data.flags?.favtab?.isFavorite; // tidy 5e sheet
 
   if (isFavourite || isFavorite) {
     return true;
@@ -62,7 +64,7 @@ export function isItemInActionList(item: Item5e) {
     }
     case 'consumable': {
       return (
-        game.settings.get(MODULE_ID, MySettings.includeConsumables) && isActiveItem(item.data.data.activation?.type)
+        !!game.settings.get(MODULE_ID, MySettings.includeConsumables) && isActiveItem(item.data.data.activation?.type)
       );
     }
     case 'spell': {
@@ -92,7 +94,7 @@ export function isItemInActionList(item: Item5e) {
       return shouldInclude;
     }
     case 'feat': {
-      return item.data.data.activation?.type;
+      return !!item.data.data.activation?.type;
     }
     default: {
       return false;

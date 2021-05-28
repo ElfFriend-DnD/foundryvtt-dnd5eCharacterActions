@@ -58,7 +58,7 @@ export function addFavoriteControls(
 
       const currentFilter = isItemInActionList(relevantItem);
 
-      log(false, { itemId, currentFilter });
+      // log(false, { itemId, currentFilter });
 
       $(element).find('.item-controls').append(createFavButton(currentFilter));
     });

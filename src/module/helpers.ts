@@ -33,9 +33,9 @@ export function isActiveItem(activationType?: string) {
 }
 
 export function isItemInActionList(item: Item5e) {
-  log(false, 'filtering item', {
-    item,
-  });
+  // log(false, 'filtering item', {
+  //   item,
+  // });
 
   // check our override
   const override = item.getFlag(MODULE_ID, MyFlags.filterOverride) as boolean | undefined;

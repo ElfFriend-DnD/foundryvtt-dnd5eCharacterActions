@@ -87,7 +87,7 @@ async function renderActionsList(
     },
     rollIcon: options?.rollIcon,
     //@ts-ignore
-    isOwner: actorData.isOwner ?? actorData.owner,
+    isOwner: actorData.isOwner,
   });
 }
 

@@ -86,7 +86,8 @@ async function renderActionsList(
       other: game.i18n.localize(`DND5E.ActionOther`),
     },
     rollIcon: options?.rollIcon,
-    isOwner: actorData.owner,
+    //@ts-ignore
+    isOwner: actorData.isOwner ?? actorData.owner,
   });
 }
 

@@ -15,7 +15,7 @@
 <ol class="item-list">
   {{#each items as |item|}}
 
-  <li class="item context-enabled flexrow" data-item-id="{{item._id}}">
+  <li class="item context-enabled flexrow" data-item-id="{{#if item.id}}{{item.id}}{{#else}}{{item._id}}{{/if}}">
     <div class="item-name flexrow rollable">
       <div class="item-image" style="background-image: url({{item.img}})">{{{ @root/rollIcon }}}</div>
       <h4>{{item.name}}</h4>

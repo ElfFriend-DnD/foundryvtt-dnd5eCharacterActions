@@ -115,6 +115,16 @@ class MyCoolItemSheet extends ItemSheet5e {
 }
 ```
 
+### `getActorActionsData(actor: Actor5e): ActorActionsList`
+```ts
+type ActorActionsList = Record<
+  'action' | 'bonus' | 'crew' | 'lair' | 'legendary' | 'reaction' | 'other',
+  Set<Partial<Item5e>>
+>
+```
+
+When passed an actor, returns the actor's 'actions list' items organized by activation type. I'm not sure why but it seems some of the information is missing from the Item5e in this list, be wary of that if you are looking to use this in another module.
+
 ### Handlebars Helper: `CAL5E-isItemInActionList`
 
 A handlebars helper is provided as well in case any sheet wants an easy way to check if an Item being rendered is expected to be part of the Actions List. `CAL5E-isItemInActionList` is a simple wrapper around `isItemInActionList`, it expects the same argument of an `item` instance.

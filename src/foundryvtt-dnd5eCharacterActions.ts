@@ -104,8 +104,9 @@ Hooks.once('init', async function () {
   await loadTemplates(Object.values(flattenObject(TEMPLATES)));
 
   game.modules.get(MODULE_ID).api = {
-    renderActionsList,
+    getActorActionsData,
     isItemInActionList,
+    renderActionsList,
   };
 
   globalThis[MODULE_ABBREV] = {

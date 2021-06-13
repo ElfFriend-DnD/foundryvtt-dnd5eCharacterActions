@@ -85,6 +85,7 @@ async function renderActionsList(
       ...game.dnd5e.config.abilityActivationTypes,
       other: game.i18n.localize(`DND5E.ActionOther`),
     },
+    damageTypes: game.dnd5e.config.damageTypes,
     rollIcon: options?.rollIcon,
     //@ts-ignore
     isOwner: actorData.isOwner,

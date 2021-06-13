@@ -68,7 +68,9 @@
     </div>
 
     <div class="item-detail damage-cell">
-      <span title="{{labels.damage}} {{labels.damageTypes}}">{{labels.damage}} {{labels.damageTypes}}</span>
+      {{#each labels.derivedDamage}}
+      {{formula}} {{localize (lookup @root/damageTypes damageType)}}
+      {{/each}}
     </div>
 
     {{#if @root/isOwner}}

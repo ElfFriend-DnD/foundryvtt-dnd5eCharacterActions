@@ -293,6 +293,7 @@ interface DND5E {
   config: {
     abilityAbbreviations: any;
     abilityActivationTypes: any;
+    damageTypes: any;
   };
 }
 

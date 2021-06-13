@@ -20,22 +20,27 @@
       <div class="item-image" style="background-image: url({{item.img}})">{{{ @root/rollIcon }}}</div>
       <h4>{{item.name}}</h4>
 
-      {{#if (or item.data.isOnCooldown item.data.data.recharge.value item.data.hasUses)}}
+      {{#if (or item.data.data.recharge.value item.hasLimitedUses (eq item.data.data.activation.type "legendary"))}}
       <div class="item-detail item-uses" title="{{localize 'DND5E.Uses'}}">
 
-        {{#if item.data.isOnCooldown}}
-
-        <a class="item-recharge rollable">{{item.labels.recharge}}</a>
-
-        {{else if item.data.data.recharge.value}}
+        {{#if (and item.data.data.recharge.charged item.data.data.recharge.value)}}
 
         {{localize "DND5E.Charged"}}
 
-        {{else if item.data.hasUses}}
+        {{else if item.data.data.recharge.value}}
+
+        <a class="item-recharge rollable">{{item.labels.recharge}}</a>
+
+        {{else if item.hasLimitedUses}}
 
         {{item.data.data.uses.value}} / {{item.data.data.uses.max}}
         <small>{{localize "DND5E.Uses"}}</small>
 
+        {{/if}}
+
+
+        {{#if (eq item.data.data.activation.type 'legendary')}}
+        {{item.data.data.activation.cost}}
         {{/if}}
 
       </div>

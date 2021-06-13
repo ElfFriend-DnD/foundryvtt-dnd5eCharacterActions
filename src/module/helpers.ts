@@ -14,6 +14,8 @@ export function getActivationType(activationType?: string) {
     case 'action':
     case 'bonus':
     case 'crew':
+    case 'lair':
+    case 'legendary':
     case 'reaction':
       return activationType;
 

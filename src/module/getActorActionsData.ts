@@ -4,7 +4,7 @@ export function getActorActionsData(actor: Actor5e) {
   const filteredItems = actor.items.filter(isItemInActionList);
 
   const actionsData: Record<
-    'action' | 'bonus' | 'crew' | 'reaction' | 'other',
+    'action' | 'bonus' | 'crew' | 'lair' | 'legendary' | 'reaction' | 'other',
     Set<Partial<Item5e>>
   > = filteredItems.reduce(
     (acc, item: Item5e) => {
@@ -27,6 +27,8 @@ export function getActorActionsData(actor: Actor5e) {
       action: new Set(),
       bonus: new Set(),
       crew: new Set(),
+      lair: new Set(),
+      legendary: new Set(),
       reaction: new Set(),
       other: new Set(),
     }

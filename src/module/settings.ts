@@ -28,4 +28,31 @@ export const registerSettings = function () {
     config: true,
     hint: `${MODULE_ABBREV}.settings.includeConsumables.Hint`,
   });
+
+  game.settings.register(MODULE_ID, MySettings.injectCharacters, {
+    name: `${MODULE_ABBREV}.settings.injectCharacters.Label`,
+    default: true,
+    type: Boolean,
+    scope: 'client',
+    config: true,
+    hint: `${MODULE_ABBREV}.settings.injectCharacters.Hint`,
+  });
+
+  game.settings.register(MODULE_ID, MySettings.injectNPCs, {
+    name: `${MODULE_ABBREV}.settings.injectNPCs.Label`,
+    default: true,
+    type: Boolean,
+    scope: 'world',
+    config: true,
+    hint: `${MODULE_ABBREV}.settings.injectNPCs.Hint`,
+  });
+
+  game.settings.register(MODULE_ID, MySettings.injectVehicles, {
+    name: `${MODULE_ABBREV}.settings.injectVehicles.Label`,
+    default: true,
+    type: Boolean,
+    scope: 'world',
+    config: true,
+    hint: `${MODULE_ABBREV}.settings.injectVehicles.Hint`,
+  });
 };

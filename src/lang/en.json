@@ -17,6 +17,18 @@
       "includeConsumables": {
         "Label": "Include Consumables as Actions",
         "Hint": "Include consumables which have an activation type (Action, Bonus Action, etc) in the Actions list."
+      },
+      "injectCharacters": {
+        "Label": "Inject Character Actions List",
+        "Hint": "Should this module inject an Actions List into the default character sheet? Note that if you are using a sheet module which integrates the actions list on its own, this will not affect that sheet."
+      },
+      "injectNPCs": {
+        "Label": "Inject NPC Actions List",
+        "Hint": "Should this module inject an Actions List into the default npc sheet? Note that if you are using a sheet module which integrates the actions list on its own, this will not affect that sheet."
+      },
+      "injectVehicles": {
+        "Label": "Inject Vehicle Actions List",
+        "Hint": "Should this module inject an Actions List into the default vehicle sheet? Note that if you are using a sheet module which integrates the actions list on its own, this will not affect that sheet."
       }
     }
   }

@@ -138,6 +138,19 @@ Hooks.once('init', async function () {
 
 // default sheet injection if this hasn't yet been injected
 Hooks.on('renderActorSheet5e', async (app, html, data) => {
+  // short circut if the user has overwritten these settings
+  switch (app.actor.type) {
+    case 'npc':
+      const injectNPCSheet = game.settings.get(MODULE_ID, MySettings.injectNPCs) as boolean;
+      if (!injectNPCSheet) return;
+    case 'vehicle':
+      const injectVehicleSheet = game.settings.get(MODULE_ID, MySettings.injectVehicles) as boolean;
+      if (!injectVehicleSheet) return;
+    case 'character':
+      const injectCharacterSheet = game.settings.get(MODULE_ID, MySettings.injectCharacters) as boolean;
+      if (!injectCharacterSheet) return;
+  }
+
   log(false, 'default sheet open hook firing', {
     app,
     html,

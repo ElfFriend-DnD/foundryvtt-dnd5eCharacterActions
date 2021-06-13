@@ -2,9 +2,12 @@ export const MODULE_ID = 'character-actions-list-5e';
 export const MODULE_ABBREV = 'CAL5E';
 
 export enum MySettings {
-  limitActionsToCantrips = 'limit-actions-to-cantrips',
-  includeOneMinuteSpells = 'include-one-minute-spells',
   includeConsumables = 'include-consumables',
+  includeOneMinuteSpells = 'include-one-minute-spells',
+  injectCharacters = 'inject-characters',
+  injectNPCs = 'inject-npcs',
+  injectVehicles = 'inject-vehicles',
+  limitActionsToCantrips = 'limit-actions-to-cantrips',
 }
 
 export enum MyFlags {

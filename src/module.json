@@ -16,10 +16,10 @@
     }
   ],
   "esmodules": [
-    "foundryvtt-dnd5eCharacterActions.js"
+    "module/foundryvtt-dnd5eCharacterActions.js"
   ],
   "styles": [
-    "foundryvtt-dnd5eCharacterActions.css"
+    "styles/foundryvtt-dnd5eCharacterActions.css"
   ],
   "languages": [
     {
@@ -37,6 +37,8 @@
   "manifest": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/latest/download/module.json",
   "readme": "https://raw.githubusercontent.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/main/README.md",
   "url": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions",
-  "allowBugReporter": true,
-  "manifestPlusVersion": "1.0.0"
+  "manifestPlusVersion": "1.0.0",
+  "flags": {
+    "allowBugReporter": true
+  }
 }

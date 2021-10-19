@@ -1,18 +1,17 @@
-import { MODULE_ABBREV, MODULE_ID, MyFlags, MySettings } from './constants';
-import { log, getActivationType, isActiveItem, isItemInActionList } from './helpers';
+import { MODULE_ABBREV, MODULE_ID, MyFlags } from './constants';
+import { getGame, isItemInActionList, log } from './helpers';
 
 export function addFavoriteControls(
   app: FormApplication & {
     object: Actor5e;
   },
   html: JQuery,
-  data: ActorSheet5eCharacterSheetData
 ) {
   function createFavButton(filterOverride: boolean) {
     return `<a class="item-control item-action-filter-override ${filterOverride ? 'active' : ''}" title="${
       filterOverride
-        ? game.i18n.localize(`${MODULE_ABBREV}.button.setOverrideFalse`)
-        : game.i18n.localize(`${MODULE_ABBREV}.button.setOverrideTrue`)
+        ? getGame().i18n.localize(`${MODULE_ABBREV}.button.setOverrideFalse`)
+        : getGame().i18n.localize(`${MODULE_ABBREV}.button.setOverrideTrue`)
     }">
       <i class="fas fa-fist-raised">
         <i class="fas fa-slash"></i>
@@ -20,8 +19,8 @@ export function addFavoriteControls(
       </i>
       <span class="control-label">${
         filterOverride
-          ? game.i18n.localize(`${MODULE_ABBREV}.button.setOverrideFalse`)
-          : game.i18n.localize(`${MODULE_ABBREV}.button.setOverrideTrue`)
+          ? getGame().i18n.localize(`${MODULE_ABBREV}.button.setOverrideFalse`)
+          : getGame().i18n.localize(`${MODULE_ABBREV}.button.setOverrideTrue`)
       }</span>
     </a>`;
   }
@@ -33,7 +32,12 @@ export function addFavoriteControls(
       try {
         const closestItemLi = $(e.target).parents('[data-item-id]')[0]; // BRITTLE
         const itemId = closestItemLi.dataset.itemId;
-        const relevantItem = app.object.items.get(itemId);
+        const relevantItem = itemId && app.object.items.get(itemId);
+
+        if (!relevantItem) {
+          return;
+        }
+
         const currentFilter = isItemInActionList(relevantItem);
 
         // set the flag to be the opposite of what it is now
@@ -53,8 +57,11 @@ export function addFavoriteControls(
     // Add button to all item rows
     html.find('[data-item-id]').each((_index, element: HTMLElement) => {
       const itemId = element.dataset.itemId;
+      const relevantItem = itemId && app.object.items.get(itemId);
 
-      const relevantItem = app.object.items.get(itemId);
+      if (!relevantItem) {
+        return;
+      }
 
       const currentFilter = isItemInActionList(relevantItem);
 

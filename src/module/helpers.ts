@@ -1,15 +1,15 @@
-import { MODULE_ABBREV, MODULE_ID, MyFlags, MySettings } from './constants';
+import { MODULE_ID, MyFlags, MySettings } from './constants';
 
 export function log(force: boolean, ...args) {
   //@ts-ignore
-  const shouldLog = force || window.DEV?.getPackageDebugValue(MODULE_ID);
+  const shouldLog = force || game.modules.get('_dev-mode')?.api?.getPackageDebugValue(MODULE_ID);
 
   if (shouldLog) {
     console.log(MODULE_ID, '|', ...args);
   }
 }
 
-export function getActivationType(activationType?: string) {
+export function getActivationType(activationType?: DND5e.AbilityActivationType) {
   switch (activationType) {
     case 'action':
     case 'bonus':
@@ -57,7 +57,7 @@ export function isItemInActionList(item: Item5e) {
   }
 
   // perform normal filtering logic
-  switch (item.type) {
+  switch (item.data.type) {
     case 'weapon': {
       return item.data.data.equipped;
     }
@@ -66,11 +66,12 @@ export function isItemInActionList(item: Item5e) {
     }
     case 'consumable': {
       return (
-        !!game.settings.get(MODULE_ID, MySettings.includeConsumables) && isActiveItem(item.data.data.activation?.type)
+        !!getGame().settings.get(MODULE_ID, MySettings.includeConsumables) &&
+        isActiveItem(item.data.data.activation?.type)
       );
     }
     case 'spell': {
-      const limitToCantrips = game.settings.get(MODULE_ID, MySettings.limitActionsToCantrips);
+      const limitToCantrips = getGame().settings.get(MODULE_ID, MySettings.limitActionsToCantrips);
 
       const isPrepared = item.data.data.preparation?.mode === 'always' || item.data.data.preparation?.prepared;
 
@@ -89,7 +90,7 @@ export function isItemInActionList(item: Item5e) {
 
       let shouldInclude = isReaction || isBonusAction || isDamageDealer;
 
-      if (game.settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
+      if (getGame().settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
         shouldInclude = shouldInclude || isOneMinuter;
       }
 
@@ -102,4 +103,11 @@ export function isItemInActionList(item: Item5e) {
       return false;
     }
   }
+}
+
+export function getGame(): Game {
+  if (!(game instanceof Game)) {
+    throw new Error('game is not initialized yet!');
+  }
+  return game;
 }

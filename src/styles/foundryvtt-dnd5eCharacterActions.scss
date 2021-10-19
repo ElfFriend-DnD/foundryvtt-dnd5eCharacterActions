@@ -1,0 +1,88 @@
+@import './variables.scss';
+
+// ensure our styles take precedence over 5e default
+.dnd5e.sheet.actor .character-actions-dnd5e {
+  // use the active whetstone global theme if there is one
+  --accent-text: var(--Whetstone-fg-secondary, #4b4a44);
+  --color: var(--Whetstone-fg-primary, #191813);
+  --accent-gray: var(--Whetstone-border-primary-darker, #c9c7b8);
+  --groove-gray: var(--Whetstone-border-primary, #eeede0);
+  --highlight: var(--Whetstone-text-highlight, #c53131);
+  --light-gray: var(--Whetstone-border-secondary, #b5b3a4);
+  --tertiary-text: var(--Whetstone-fg-tertiary-half, #7a7971);
+
+  .dark-mode & {
+    --accent-text: var(--Whetstone-fg-secondary, #a0a0a0);
+    --color: var(--Whetstone-fg-primary, #b5b5b5);
+    --accent-gray: var(--Whetstone-border-primary-darker, #666666);
+    --groove-gray: var(--Whetstone-border-primary, #5e5e5e);
+    --highlight: var(--Whetstone-text-highlight, #3f88e6);
+    --light-gray: var(--Whetstone-border-secondary, #5e5e5e);
+    --tertiary-text: var(--Whetstone-fg-tertiary-half, #7a7971);
+  }
+
+  @import './actions.scss';
+}
+
+/* Override this if in your sheet styles if you want the control label to show up. */
+.item-action-filter-override {
+  .control-label {
+    display: none;
+  }
+
+  /* main icon */
+  > i {
+    position: relative;
+    width: 1em;
+  }
+
+  /* slash applied to the main icon if active on hover */
+  .fa-slash {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: -1px;
+    text-shadow: 0 2px 0 #c9c7b8;
+  }
+
+  /* plus applied to the main icon if inactive */
+  .fa-plus {
+    position: absolute;
+    bottom: -0.1em;
+    left: 0.7em;
+    text-shadow: -1px -1px 0 #c9c7b8, 1px -1px 0 #c9c7b8, -1px 1px 0 #c9c7b8, 1px 1px 0 #c9c7b8;
+    font-size: 0.7em;
+  }
+
+  &.active {
+    .fa-plus {
+      display: none;
+    }
+
+    &:hover {
+      /* display the slash */
+      .fa-slash {
+        display: block;
+      }
+    }
+  }
+}
+
+/* Tidy Specifc override */
+.tidy5e-sheet {
+  .context-menu {
+    .item-action-filter-override {
+      .control-label {
+        display: unset;
+      }
+    }
+  }
+
+  .character-actions-dnd5e {
+    .items-header {
+      .item-controls {
+        display: none;
+      }
+    }
+  }
+}

@@ -1,2 +1,2 @@
-# Ignore all HBS files
-*.hbs
+dist
+package-lock.json

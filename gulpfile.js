@@ -19,7 +19,8 @@ const stylesDirectory = `${sourceDirectory}/styles`;
 const stylesExtension = 'scss';
 const sourceFileExtension = 'ts';
 const staticFiles = ['assets', 'fonts', 'lang', 'packs', 'templates', 'module.json'];
-const getDownloadURL = (version) => `https://host/path/to/${version}.zip`;
+const getDownloadURL = (version) =>
+  `https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v${version}/module.zip`;
 
 /********************/
 /*      BUILD       */

@@ -8,15 +8,19 @@
     "settings": {
       "limitActionsToCantrips": {
         "Label": "Limit Actions to Cantrips",
-        "Hint": "Instead of showing all spells that deal damage in the Actions tab/panel, limit it to only cantrips. This is the default D&DBeyond behavior."
+        "Hint": "Instead of showing all spells that deal damage in the Actions tab/panel by default, limit it to only cantrips. This is the default D&DBeyond behavior."
       },
       "includeOneMinuteSpells": {
         "Label": "Include Minute-long Spells as Actions",
-        "Hint": "Include spells with a duration of one minute and an activation time of 1 Action or 1 Bonus Action in the Actions tab/panel."
+        "Hint": "Include spells with a duration of one minute or less (e.g. 1 round) and an activation time of 1 Action or 1 Bonus Action (e.g. Bless, Bane, Command) in the Actions tab/panel by default."
+      },
+      "includeSpellsWithEffects": {
+        "Label": "Include Spells with Active Effects as Actions",
+        "Hint": "Include spells with active effects attached (e.g. Barkskin) in the Actions tab/panel by default."
       },
       "includeConsumables": {
         "Label": "Include Consumables as Actions",
-        "Hint": "Include consumables which have an activation type (Action, Bonus Action, etc) in the Actions list."
+        "Hint": "Include consumables which have an activation cost (Action, Bonus Action, etc) in the Actions list by default."
       },
       "injectCharacters": {
         "Label": "Inject Character Actions List",

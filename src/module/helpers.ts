@@ -73,11 +73,12 @@ export function isItemInActionList(item: Item5e) {
     case 'spell': {
       const limitToCantrips = getGame().settings.get(MODULE_ID, MySettings.limitActionsToCantrips);
 
-      const isPrepared = item.data.data.preparation?.mode === 'always' || item.data.data.preparation?.prepared;
+      // only exclude spells which need to be prepared but aren't
+      const notPrepared = item.data.data.preparation?.mode === 'prepared' && !item.data.data.preparation?.prepared;
 
       const isCantrip = item.data.data.level === 0;
 
-      if (!isCantrip && (limitToCantrips || !isPrepared)) {
+      if (!isCantrip && (limitToCantrips || notPrepared)) {
         return false;
       }
 
@@ -86,12 +87,19 @@ export function isItemInActionList(item: Item5e) {
 
       //ASSUMPTION: If the spell causes damage, it will have damageParts
       const isDamageDealer = item.data.data.damage?.parts?.length > 0;
-      const isOneMinuter = item.data.data?.duration?.units === 'minute' && item.data.data?.duration?.value === 1;
 
       let shouldInclude = isReaction || isBonusAction || isDamageDealer;
 
       if (getGame().settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
-        shouldInclude = shouldInclude || isOneMinuter;
+        const isOneMinuter = item.data.data?.duration?.units === 'minute' && item.data.data?.duration?.value === 1;
+        const isOneRounder = item.data.data?.duration?.units === 'round' && item.data.data?.duration?.value === 1;
+
+        shouldInclude = shouldInclude || isOneMinuter || isOneRounder;
+      }
+
+      if (getGame().settings.get(MODULE_ID, MySettings.includeSpellsWithEffects)) {
+        const hasEffects = !!item.effects.size;
+        shouldInclude = shouldInclude || hasEffects;
       }
 
       return shouldInclude;

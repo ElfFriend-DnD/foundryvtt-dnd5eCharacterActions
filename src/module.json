@@ -5,7 +5,7 @@
   "systems": [
     "dnd5e"
   ],
-  "version": "4.2.3",
+  "version": "4.3.0",
   "author": "Andrew Krigline (akrigline)",
   "authors": [
     {
@@ -33,7 +33,7 @@
   "compatibleCoreVersion": "0.8.6",
   "bugs": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/issues",
   "changelog": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases",
-  "download": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v4.2.3/module.zip",
+  "download": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v4.3.0/module.zip",
   "manifest": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/latest/download/module.json",
   "readme": "https://raw.githubusercontent.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/main/README.md",
   "url": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions",

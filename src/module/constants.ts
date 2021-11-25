@@ -4,6 +4,7 @@ export const MODULE_ABBREV = 'CAL5E';
 export enum MySettings {
   includeConsumables = 'include-consumables',
   includeOneMinuteSpells = 'include-one-minute-spells',
+  includeSpellsWithEffects = 'include-spells-with-effects',
   injectCharacters = 'inject-characters',
   injectNPCs = 'inject-npcs',
   injectVehicles = 'inject-vehicles',

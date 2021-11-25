@@ -21,6 +21,15 @@ export const registerSettings = function () {
     hint: `${MODULE_ABBREV}.settings.includeOneMinuteSpells.Hint`,
   });
 
+  getGame().settings.register(MODULE_ID, MySettings.includeSpellsWithEffects, {
+    name: `${MODULE_ABBREV}.settings.includeSpellsWithEffects.Label`,
+    default: true,
+    type: Boolean,
+    scope: 'client',
+    config: true,
+    hint: `${MODULE_ABBREV}.settings.includeSpellsWithEffects.Hint`,
+  });
+
   getGame().settings.register(MODULE_ID, MySettings.includeConsumables, {
     name: `${MODULE_ABBREV}.settings.includeConsumables.Label`,
     default: true,

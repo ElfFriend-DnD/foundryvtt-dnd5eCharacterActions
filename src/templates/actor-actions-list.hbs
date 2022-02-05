@@ -18,7 +18,21 @@
   <li class="item context-enabled flexrow" data-item-id="{{item.id}}">
     <div class="item-name flexrow rollable">
       <div class="item-image" style="background-image: url({{item.img}})">{{{ @root/rollIcon }}}</div>
-      <h4>{{item.name}}</h4>
+      <div class="flexcol action-item-name-column">
+        <h4 title="{{item.name}}{{~#if (gt item.data.data.quantity 1)}} ({{item.data.data.quantity}}){{/if}}">
+          {{item.name}}
+        </h4>
+        <small>
+          {{#if (ne item.type 'spell')}}
+          {{item.labels.type}}
+          {{/if}}
+          {{#if (and (eq item.type 'spell') (ne item.data.data.level 0))}}
+          {{item.labels.level}} {{item.labels.school}}
+          {{else}}
+          {{item.labels.school}} {{item.labels.level}}
+          {{/if}}
+        </small>
+      </div>
 
       {{#if (or item.data.data.recharge.value item.hasLimitedUses (eq item.data.data.activation.type "legendary"))}}
       <div class="item-detail item-uses" title="{{localize 'DND5E.Uses'}}">
@@ -33,26 +47,34 @@
 
         {{else if item.hasLimitedUses}}
 
-        {{item.data.data.uses.value}} / {{item.data.data.uses.max}}
+        {{#if (and (eq item.data.data.uses.value item.data.data.uses.max) item.data.data.uses.autoDestroy)}}
+        <span title='{{item.data.data.quantity}}'>{{item.data.data.quantity}}</span>
+        <small>{{localize "DND5E.Quantity"}}</small>
+        {{else}}
+        <span>
+          {{item.data.data.uses.value}} / {{item.data.data.uses.max}}
+        </span>
         <small>{{localize "DND5E.Uses"}}</small>
+        {{/if}}
 
         {{/if}}
 
 
-        {{#if (eq item.data.data.activation.type 'legendary')}}
-        {{item.data.data.activation.cost}}
-        {{/if}}
-
+        {{#if (eq item.data.data.activation.type 'legendary')}} {{item.data.data.activation.cost}} {{/if}}
       </div>
       {{/if}}
     </div>
 
     <div class="item-detail action-range">
+      {{#if (eq data.data.target.type 'self')}}
+      <span title="{{labels.target}}">{{labels.target}}</span>
+      {{else}}
       <span title="{{labels.range}}">{{labels.range}}</span>
       {{#if labels.target}}
       <small title="{{labels.target}}">
         {{labels.target}}
       </small>
+      {{/if}}
       {{/if}}
     </div>
 

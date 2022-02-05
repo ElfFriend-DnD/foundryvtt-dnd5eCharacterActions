@@ -23,6 +23,7 @@
   flex-direction: column;
   display: flex;
   color: var(--tertiary-text);
+  flex: 0 0 10ch;
 }
 
 .damage-cell {
@@ -39,4 +40,18 @@
 .item-controls {
   text-align: center;
   flex: 0 0 2em;
+}
+
+.item-name {
+  flex-wrap: nowrap;
+}
+
+.action-item-name-column {
+  flex: 1 1 100%;
+  overflow: hidden;
+
+  > small {
+    color: var(--tertiary-text);
+    font-size: 10px;
+  }
 }

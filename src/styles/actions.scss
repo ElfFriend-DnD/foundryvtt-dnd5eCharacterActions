@@ -28,6 +28,9 @@
 
 .damage-cell {
   flex-basis: 100px;
+  display: inline-flex;
+  place-content: center;
+  gap: 0.5ch;
 }
 
 .to-hit-cell {

@@ -32,6 +32,16 @@ export function getActorActionsData(actor: Actor5e) {
         item.labels.type = getGame().i18n.localize(`DND5E.ItemType${item.type.titleCase()}`);
       }
 
+      // removes any in-formula flavor text from the formula in the label
+      //@ts-expect-error
+      if (item.labels?.derivedDamage?.length) {
+        //@ts-expect-error
+        item.labels.derivedDamage = item.labels.derivedDamage.map(({ formula, ...rest }) => ({
+          formula: formula.replace(/\[.+?\]/, '') || '0',
+          ...rest,
+        }));
+      }
+
       return item;
     });
 

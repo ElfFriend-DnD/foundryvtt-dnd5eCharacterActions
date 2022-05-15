@@ -70,7 +70,7 @@ const damageTypeIconMap = {
   acid: '<i class="fas fa-hand-holding-water"></i>',
   bludgeoning: '<i class="fas fa-gavel"></i>',
   cold: '<i class="fas fa-snowflake"></i>',
-  fire: '<i class="fas fa-fire"></i>',
+  fire: '<i class="fas fa-fire-alt"></i>',
   force: '<i class="fas fa-hat-wizard"></i>',
   lightning: '<i class="fas fa-bolt"></i>',
   necrotic: '<i class="fas fa-skull"></i>',
@@ -80,7 +80,7 @@ const damageTypeIconMap = {
   radiant: '<i class="fas fa-sun"></i>',
   slashing: '<i class="fas fa-cut"></i>',
   thunder: '<i class="fas fa-wind"></i>',
-  healing: '<i class="fas fa-medkit"></i>',
+  healing: '<i class="fas fa-heart"></i>',
   temphp: '<i class="fas fa-shield-alt"></i>',
 };
 

@@ -91,7 +91,8 @@
 
     <div class="item-detail damage-cell">
       {{#each labels.derivedDamage}}
-      <p title="{{label}}">
+      <p title="{{#if label}}{{label}}{{else}}{{formula}} {{lookup @root/damageTypes
+          damageType}}{{/if}}">
         {{formula}} <span>{{{lookup @root/damageTypeIconMap
           damageType}}}</span>
       </p>

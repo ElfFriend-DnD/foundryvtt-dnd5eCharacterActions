@@ -37,7 +37,7 @@ export function getActorActionsData(actor: Actor5e) {
       if (item.labels?.derivedDamage?.length) {
         //@ts-expect-error
         item.labels.derivedDamage = item.labels.derivedDamage.map(({ formula, ...rest }) => ({
-          formula: formula.replace(/\[.+?\]/, '') || '0',
+          formula: formula?.replace(/\[.+?\]/, '') || '0',
           ...rest,
         }));
       }

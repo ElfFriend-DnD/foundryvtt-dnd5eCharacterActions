@@ -48,51 +48,50 @@ export function isItemInActionList(item: Item5e) {
 
   // check the old flags
   //@ts-ignore
-  const isFavourite = item.data.flags?.favtab?.isFavourite; // favourite items tab
+  const isFavourite = item.flags?.favtab?.isFavourite; // favourite items tab
   //@ts-ignore
-  const isFavorite = item.data.flags?.favtab?.isFavorite; // tidy 5e sheet
+  const isFavorite = item.flags?.favtab?.isFavorite; // tidy 5e sheet
 
   if (isFavourite || isFavorite) {
     return true;
   }
 
   // perform normal filtering logic
-  switch (item.data.type) {
+  switch (item.type) {
     case 'weapon': {
-      return item.data.data.equipped;
+      return item.system.equipped;
     }
     case 'equipment': {
-      return item.data.data.equipped && isActiveItem(item.data.data.activation?.type);
+      return item.system.equipped && isActiveItem(item.system.activation?.type);
     }
     case 'consumable': {
       return (
-        !!getGame().settings.get(MODULE_ID, MySettings.includeConsumables) &&
-        isActiveItem(item.data.data.activation?.type)
+        !!getGame().settings.get(MODULE_ID, MySettings.includeConsumables) && isActiveItem(item.system.activation?.type)
       );
     }
     case 'spell': {
       const limitToCantrips = getGame().settings.get(MODULE_ID, MySettings.limitActionsToCantrips);
 
       // only exclude spells which need to be prepared but aren't
-      const notPrepared = item.data.data.preparation?.mode === 'prepared' && !item.data.data.preparation?.prepared;
+      const notPrepared = item.system.preparation?.mode === 'prepared' && !item.system.preparation?.prepared;
 
-      const isCantrip = item.data.data.level === 0;
+      const isCantrip = item.system.level === 0;
 
       if (!isCantrip && (limitToCantrips || notPrepared)) {
         return false;
       }
 
-      const isReaction = item.data.data.activation?.type === 'reaction';
-      const isBonusAction = item.data.data.activation?.type === 'bonus';
+      const isReaction = item.system.activation?.type === 'reaction';
+      const isBonusAction = item.system.activation?.type === 'bonus';
 
       //ASSUMPTION: If the spell causes damage, it will have damageParts
-      const isDamageDealer = item.data.data.damage?.parts?.length > 0;
+      const isDamageDealer = item.system.damage?.parts?.length > 0;
 
       let shouldInclude = isReaction || isBonusAction || isDamageDealer;
 
       if (getGame().settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
-        const isOneMinuter = item.data.data?.duration?.units === 'minute' && item.data.data?.duration?.value === 1;
-        const isOneRounder = item.data.data?.duration?.units === 'round' && item.data.data?.duration?.value === 1;
+        const isOneMinuter = item.system?.duration?.units === 'minute' && item.system?.duration?.value === 1;
+        const isOneRounder = item.system?.duration?.units === 'round' && item.system?.duration?.value === 1;
 
         shouldInclude = shouldInclude || isOneMinuter || isOneRounder;
       }
@@ -105,7 +104,7 @@ export function isItemInActionList(item: Item5e) {
       return shouldInclude;
     }
     case 'feat': {
-      return !!item.data.data.activation?.type;
+      return !!item.system.activation?.type;
     }
     default: {
       return false;

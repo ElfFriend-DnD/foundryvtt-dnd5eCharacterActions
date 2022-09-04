@@ -19,14 +19,14 @@
     <div class="item-name flexrow rollable">
       <div class="item-image" style="background-image: url({{item.img}})">{{{ @root/rollIcon }}}</div>
       <div class="flexcol action-item-name-column">
-        <h4 title="{{item.name}}{{~#if (gt item.data.data.quantity 1)}} ({{item.data.data.quantity}}){{/if}}">
+        <h4 title="{{item.name}}{{~#if (gt item.system.quantity 1)}} ({{item.system.quantity}}){{/if}}">
           {{item.name}}
         </h4>
         <small>
           {{#if (ne item.type 'spell')}}
           {{item.labels.type}}
           {{/if}}
-          {{#if (and (eq item.type 'spell') (ne item.data.data.level 0))}}
+          {{#if (and (eq item.type 'spell') (ne item.system.level 0))}}
           {{item.labels.level}} {{item.labels.school}}
           {{else}}
           {{item.labels.school}} {{item.labels.level}}
@@ -34,25 +34,25 @@
         </small>
       </div>
 
-      {{#if (or item.data.data.recharge.value item.hasLimitedUses (eq item.data.data.activation.type "legendary"))}}
+      {{#if (or item.system.recharge.value item.hasLimitedUses (eq item.system.activation.type "legendary"))}}
       <div class="item-detail item-uses" title="{{localize 'DND5E.Uses'}}">
 
-        {{#if (and item.data.data.recharge.charged item.data.data.recharge.value)}}
+        {{#if (and item.system.recharge.charged item.system.recharge.value)}}
 
         {{localize "DND5E.Charged"}}
 
-        {{else if item.data.data.recharge.value}}
+        {{else if item.system.recharge.value}}
 
         <a class="item-recharge rollable">{{item.labels.recharge}}</a>
 
         {{else if item.hasLimitedUses}}
 
-        {{#if (and (eq item.data.data.uses.value item.data.data.uses.max) item.data.data.uses.autoDestroy)}}
-        <span title='{{item.data.data.quantity}}'>{{item.data.data.quantity}}</span>
+        {{#if (and (eq item.system.uses.value item.system.uses.max) item.system.uses.autoDestroy)}}
+        <span title='{{item.system.quantity}}'>{{item.system.quantity}}</span>
         <small>{{localize "DND5E.Quantity"}}</small>
         {{else}}
         <span>
-          {{item.data.data.uses.value}} / {{item.data.data.uses.max}}
+          {{item.system.uses.value}} / {{item.system.uses.max}}
         </span>
         <small>{{localize "DND5E.Uses"}}</small>
         {{/if}}
@@ -60,13 +60,13 @@
         {{/if}}
 
 
-        {{#if (eq item.data.data.activation.type 'legendary')}} {{item.data.data.activation.cost}} {{/if}}
+        {{#if (eq item.system.activation.type 'legendary')}} {{item.system.activation.cost}} {{/if}}
       </div>
       {{/if}}
     </div>
 
     <div class="item-detail action-range">
-      {{#if (eq data.data.target.type 'self')}}
+      {{#if (eq system.target.type 'self')}}
       <span title="{{labels.target}}">{{labels.target}}</span>
       {{else}}
       <span title="{{labels.range}}">{{labels.range}}</span>
@@ -81,8 +81,8 @@
     <div class="item-detail to-hit-cell">
       {{#if (or labels.save labels.toHit)}}
       {{#unless (or (eq labels.save "") (eq labels.save undefined))}}
-      <span title="{{labels.save}}">{{localize DND5E.AbbreviationDC}} {{data.data.save.dc}}</span>
-      <small>{{lookup @root/abilities data.data.save.ability}}</small>
+      <span title="{{labels.save}}">{{localize DND5E.AbbreviationDC}} {{system.save.dc}}</span>
+      <small>{{lookup @root/abilities system.save.ability}}</small>
       {{else}}
       <span title="{{labels.toHit}}">{{labels.toHit}}</span>
       {{/unless}}

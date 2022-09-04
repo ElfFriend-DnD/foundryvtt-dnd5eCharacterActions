@@ -58,7 +58,7 @@ async function addActionsTab(
   // owner only listeners
   if (data.owner) {
     // @ts-ignore
-    actionsTabHtml.find('.item .item-image').click((event) => app._onItemRoll(event));
+    actionsTabHtml.find('.item .item-image').click((event) => app._onItemUse(event));
     // @ts-ignore
     actionsTabHtml.find('.item .item-recharge').click((event) => app._onItemRecharge(event));
   } else {

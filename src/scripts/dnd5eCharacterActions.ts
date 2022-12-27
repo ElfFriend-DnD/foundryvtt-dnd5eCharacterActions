@@ -18,7 +18,7 @@ Handlebars.registerHelper(`${MODULE_ID}-isEmpty`, (input: Object | Array<any> | 
 Handlebars.registerHelper(`${MODULE_ID}-isItemInActionList`, isItemInActionList);
 
 /**
- * Add the Actions Tab to Sheet HTML. Returns early if the character-actions-dnd5e element already exists
+ * Add the Actions Tab to Sheet HTML. Returns early if the character-actions-list-5e element already exists
  */
 async function addActionsTab(
 	app: ActorSheet5e,
@@ -30,7 +30,7 @@ async function addActionsTab(
 		return;
 	}
 
-	const existingActionsList = $(html).find(".character-actions-dnd5e");
+	const existingActionsList = $(html).find(".character-actions-list-5e");
 
 	// check if what is rendering this is an Application and if our Actions List exists within it already
 	if ((!!app.appId && !!existingActionsList.length) || app.options.blockActionsTab) {
@@ -83,7 +83,7 @@ Hooks.once("init", async function () {
 		characterActionsModuleData.api = API;
 	}
 
-    // TODO TO REMOVE
+	// TODO TO REMOVE
 	globalThis[MODULE_ID] = {
 		renderActionsList: async function (...args) {
 			log(false, {
@@ -107,7 +107,6 @@ Hooks.once("init", async function () {
 		},
 	};
 
-
 	Hooks.call(`CharacterActions5eReady`, characterActionsModuleData?.api);
 });
 
@@ -118,24 +117,24 @@ Hooks.on("renderActorSheet5e", async (app, html, data) => {
 		case "npc": {
 			const injectNPCSheet = game.settings.get(MODULE_ID, MySettings.injectNPCs) as boolean;
 			if (!injectNPCSheet) {
-                return;
-            }
-            break;
-        }
+				return;
+			}
+			break;
+		}
 		case "vehicle": {
 			const injectVehicleSheet = game.settings.get(MODULE_ID, MySettings.injectVehicles) as boolean;
 			if (!injectVehicleSheet) {
-                return;
-            }
-            break;
-        }
+				return;
+			}
+			break;
+		}
 		case "character": {
 			const injectCharacterSheet = game.settings.get(MODULE_ID, MySettings.injectCharacters) as boolean;
 			if (!injectCharacterSheet) {
-                return;
-            }
-            break;
-        }
+				return;
+			}
+			break;
+		}
 	}
 
 	log(false, "default sheet open hook firing", {
@@ -144,7 +143,7 @@ Hooks.on("renderActorSheet5e", async (app, html, data) => {
 		data,
 	});
 
-	const actionsList = $(html).find(".character-actions-dnd5e");
+	const actionsList = $(html).find(".character-actions-list-5e");
 
 	log(false, "actionsListExists", { actionsListExists: actionsList.length });
 

@@ -112,7 +112,7 @@
 {{/unless}}
 {{/inline}}
 
-<ol class="character-actions-dnd5e items-list inventory-list">
+<ol class="character-actions-list-5e items-list inventory-list">
   {{#each actionData as |data key| }}
   {{> action-sublist items=data label=(lookup @root/activationTypes key) }}
   {{/each}}

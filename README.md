@@ -152,7 +152,7 @@ A handlebars helper is provided as well in case any sheet wants an easy way to c
 
 If a sheet module wants to specifically block the injection of the actions tab without implementing the actions list itself, add `blockActionsTab` to the options being passed to the FormApplication class.
 
-Note that by default, the actions tab will only inject itself if no DOM element with the class `.character-actions-dnd5e` exists in the Application being rendered.
+**Note:** that by default, the actions tab will only inject itself if no DOM element with the class `.character-actions-list-5e` exists in the Application being rendered.
 
 #### Example
 

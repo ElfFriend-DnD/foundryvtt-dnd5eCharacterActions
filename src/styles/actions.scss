@@ -1,60 +1,60 @@
-@import './mixins';
-@import './variables';
+@import "./mixins";
+@import "./variables";
 
 .item-detail {
-  > * {
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
+	> * {
+		max-width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
 
-  .item-recharge {
-    flex: unset;
-  }
+	.item-recharge {
+		flex: unset;
+	}
 }
 
 .action-range {
-  flex-basis: 100px;
-  flex-direction: column;
-  display: flex;
+	flex-basis: 100px;
+	flex-direction: column;
+	display: flex;
 }
 
 .item-uses {
-  flex-direction: column;
-  display: flex;
-  color: var(--tertiary-text);
-  flex: 0 0 10ch;
+	flex-direction: column;
+	display: flex;
+	color: var(--tertiary-text);
+	flex: 0 0 10ch;
 }
 
 .damage-cell {
-  flex-basis: 100px;
-  display: inline-flex;
-  place-content: center;
-  gap: 0.5ch;
+	flex-basis: 100px;
+	display: inline-flex;
+	place-content: center;
+	gap: 0.5ch;
 }
 
 .to-hit-cell {
-  flex-basis: 60px;
-  flex-direction: column;
-  display: flex;
-  text-transform: uppercase;
+	flex-basis: 60px;
+	flex-direction: column;
+	display: flex;
+	text-transform: uppercase;
 }
 
 .item-controls {
-  text-align: center;
-  flex: 0 0 2em;
+	text-align: center;
+	flex: 0 0 2em;
 }
 
 .item-name {
-  flex-wrap: nowrap;
+	flex-wrap: nowrap;
 }
 
 .action-item-name-column {
-  flex: 1 1 100%;
-  overflow: hidden;
+	flex: 1 1 100%;
+	overflow: hidden;
 
-  > small {
-    color: var(--tertiary-text);
-    font-size: 10px;
-  }
+	> small {
+		color: var(--tertiary-text);
+		font-size: 10px;
+	}
 }

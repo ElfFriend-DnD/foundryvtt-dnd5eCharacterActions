@@ -1,52 +1,48 @@
 {
-  "id": "character-actions-list-5e",
-  "title": "Character Actions List dnd5e",
-  "description": "Provides an Actions List Component",
-  "version": "6.0.1",
-  "author": "Andrew Krigline (akrigline)",
-  "authors": [
-    {
-      "name": "Andrew Krigline",
-      "discord": "Calego#0914",
-      "url": "https://github.com/ElfFriend-DnD",
-      "patreon": "https://www.patreon.com/ElfFriend_DnD"
-    }
-  ],
-  "esmodules": [
-    "module/foundryvtt-dnd5eCharacterActions.js"
-  ],
-  "styles": [
-    "styles/foundryvtt-dnd5eCharacterActions.css"
-  ],
-  "languages": [
-    {
-      "lang": "en",
-      "name": "English",
-      "path": "lang/en.json"
-    }
-  ],
-  "relationships": {
-    "systems": [
-      {
-        "id": "dnd5e",
-        "type": "system",
-        "compatibility": {
-          "minimum": "2.0.0"
-        }
-      }
-    ]
-  },
-  "compatibility": {
-    "minimum": 10
-  },
-  "bugs": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/issues",
-  "changelog": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases",
-  "download": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v6.0.1/module.zip",
-  "manifest": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/latest/download/module.json",
-  "readme": "https://raw.githubusercontent.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/main/README.md",
-  "url": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions",
-  "manifestPlusVersion": "1.1.0",
-  "flags": {
-    "allowBugReporter": true
-  }
+	"id": "character-actions-list-5e",
+	"title": "Character Actions List dnd5e",
+	"description": "Provides an Actions List Component",
+	"version": "6.0.1",
+	"author": "Andrew Krigline (akrigline)",
+	"authors": [
+		{
+			"name": "Andrew Krigline",
+			"discord": "Calego#0914",
+			"url": "https://github.com/ElfFriend-DnD",
+			"patreon": "https://www.patreon.com/ElfFriend_DnD"
+		}
+	],
+	"esmodules": ["module/foundryvtt-dnd5eCharacterActions.js"],
+	"styles": ["styles/foundryvtt-dnd5eCharacterActions.css"],
+	"languages": [
+		{
+			"lang": "en",
+			"name": "English",
+			"path": "lang/en.json"
+		}
+	],
+	"relationships": {
+		"systems": [
+			{
+				"id": "dnd5e",
+				"type": "system",
+				"compatibility": {
+					"minimum": "2.0.0"
+				}
+			}
+		]
+	},
+	"compatibility": {
+		"minimum": 10
+	},
+	"bugs": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/issues",
+	"changelog": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases",
+	"download": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/download/v6.0.1/module.zip",
+	"manifest": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/releases/latest/download/module.json",
+	"readme": "https://raw.githubusercontent.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions/main/README.md",
+	"url": "https://github.com/ElfFriend-DnD/foundryvtt-dnd5eCharacterActions",
+	"manifestPlusVersion": "1.1.0",
+	"flags": {
+		"allowBugReporter": true
+	}
 }

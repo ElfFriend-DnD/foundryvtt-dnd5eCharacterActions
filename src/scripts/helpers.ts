@@ -9,18 +9,20 @@ export function log(force: boolean, ...args) {
 	}
 }
 
-export function getActivationType(activationType?: DND5e.AbilityActivationType) {
+export function getActivationType(activationType?: string) {
+	// DND5e.AbilityActivationType
 	switch (activationType) {
 		case "action":
 		case "bonus":
 		case "crew":
 		case "lair":
 		case "legendary":
-		case "reaction":
+		case "reaction": {
 			return activationType;
-
-		default:
+		}
+		default: {
 			return "other";
+		}
 	}
 }
 
@@ -66,12 +68,12 @@ export function isItemInActionList(item: Item5e) {
 		}
 		case "consumable": {
 			return (
-				!!getGame().settings.get(MODULE_ID, MySettings.includeConsumables) &&
+				!!game.settings.get(MODULE_ID, MySettings.includeConsumables) &&
 				isActiveItem(item.system.activation?.type)
 			);
 		}
 		case "spell": {
-			const limitToCantrips = getGame().settings.get(MODULE_ID, MySettings.limitActionsToCantrips);
+			const limitToCantrips = game.settings.get(MODULE_ID, MySettings.limitActionsToCantrips);
 
 			// only exclude spells which need to be prepared but aren't
 			const notPrepared = item.system.preparation?.mode === "prepared" && !item.system.preparation?.prepared;
@@ -90,14 +92,14 @@ export function isItemInActionList(item: Item5e) {
 
 			let shouldInclude = isReaction || isBonusAction || isDamageDealer;
 
-			if (getGame().settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
+			if (game.settings.get(MODULE_ID, MySettings.includeOneMinuteSpells)) {
 				const isOneMinuter = item.system?.duration?.units === "minute" && item.system?.duration?.value === 1;
 				const isOneRounder = item.system?.duration?.units === "round" && item.system?.duration?.value === 1;
 
 				shouldInclude = shouldInclude || isOneMinuter || isOneRounder;
 			}
 
-			if (getGame().settings.get(MODULE_ID, MySettings.includeSpellsWithEffects)) {
+			if (game.settings.get(MODULE_ID, MySettings.includeSpellsWithEffects)) {
 				const hasEffects = !!item.effects.size;
 				shouldInclude = shouldInclude || hasEffects;
 			}
@@ -111,11 +113,4 @@ export function isItemInActionList(item: Item5e) {
 			return false;
 		}
 	}
-}
-
-export function getGame(): Game {
-	if (!(game instanceof Game)) {
-		throw new Error("game is not initialized yet!");
-	}
-	return game;
 }

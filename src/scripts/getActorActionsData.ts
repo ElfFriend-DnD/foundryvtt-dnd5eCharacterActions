@@ -1,4 +1,4 @@
-import { getActivationType, getGame, isItemInActionList, log } from "./helpers";
+import { getActivationType, isItemInActionList, log } from "./helpers";
 
 enum ItemTypeSortValues {
 	weapon = 1,
@@ -14,8 +14,10 @@ enum ItemTypeSortValues {
 
 export function getActorActionsData(actor: Actor5e) {
 	const filteredItems = actor.items
-		.filter(isItemInActionList)
-		.sort((a, b) => {
+		.filter((i: Item5e) => {
+			return isItemInActionList(i);
+		})
+		.sort((a: Item5e, b: Item5e) => {
 			if (a.type !== b.type) {
 				return ItemTypeSortValues[a.type] - ItemTypeSortValues[b.type];
 			}
@@ -26,16 +28,16 @@ export function getActorActionsData(actor: Actor5e) {
 
 			return (a.sort || 0) - (b.sort || 0);
 		})
-		.map((item) => {
+		.map((item: Item5e) => {
 			if (item.labels) {
-				//@ts-expect-error
-				item.labels.type = getGame().i18n.localize(`DND5E.ItemType${item.type.titleCase()}`);
+				//ts-expect-error
+				item.labels.type = game.i18n.localize(`DND5E.ItemType${item.type.titleCase()}`);
 			}
 
 			// removes any in-formula flavor text from the formula in the label
-			//@ts-expect-error
+			//ts-expect-error
 			if (item.labels?.derivedDamage?.length) {
-				//@ts-expect-error
+				//ts-expect-error
 				item.labels.derivedDamage = item.labels.derivedDamage.map(({ formula, ...rest }) => ({
 					formula: formula?.replace(/\[.+?\]/, "") || "0",
 					...rest,

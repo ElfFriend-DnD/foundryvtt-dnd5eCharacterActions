@@ -1,17 +1,17 @@
-import { MODULE_ABBREV, MODULE_ID, MyFlags } from "./constants";
-import { getGame, isItemInActionList, log } from "./helpers";
+import { MODULE_ID, MyFlags } from "./constants";
+import { isItemInActionList, log } from "./helpers";
 
 export function addFavoriteControls(
 	app: FormApplication & {
-		object: Actor5e;
+		object: Actor;
 	},
 	html: JQuery
 ) {
 	function createFavButton(filterOverride: boolean) {
 		return `<a class="item-control item-action-filter-override ${filterOverride ? "active" : ""}" title="${
 			filterOverride
-				? getGame().i18n.localize(`${MODULE_ABBREV}.button.setOverrideFalse`)
-				: getGame().i18n.localize(`${MODULE_ABBREV}.button.setOverrideTrue`)
+				? game.i18n.localize(`${MODULE_ID}.button.setOverrideFalse`)
+				: game.i18n.localize(`${MODULE_ID}.button.setOverrideTrue`)
 		}">
       <i class="fas fa-fist-raised">
         <i class="fas fa-slash"></i>
@@ -19,8 +19,8 @@ export function addFavoriteControls(
       </i>
       <span class="control-label">${
 			filterOverride
-				? getGame().i18n.localize(`${MODULE_ABBREV}.button.setOverrideFalse`)
-				: getGame().i18n.localize(`${MODULE_ABBREV}.button.setOverrideTrue`)
+				? game.i18n.localize(`${MODULE_ID}.button.setOverrideFalse`)
+				: game.i18n.localize(`${MODULE_ID}.button.setOverrideTrue`)
 		}</span>
     </a>`;
 	}
@@ -30,9 +30,14 @@ export function addFavoriteControls(
 		// Handle Click on our action
 		$(html).on("click", "a.item-action-filter-override", (e) => {
 			try {
-				const closestItemLi = $(e.target).parents("[data-item-id]")[0]; // BRITTLE
-				const itemId = closestItemLi.dataset.itemId;
-				const relevantItem = itemId && app.object.items.get(itemId);
+				const closestItemLi = <HTMLElement>$(e.target).parents("[data-item-id]")[0]; // BRITTLE
+				const itemId = <string>closestItemLi.dataset.itemId;
+
+				if (!itemId) {
+					return;
+				}
+
+				const relevantItem = <Item5e>app.object.items.get(itemId);
 
 				if (!relevantItem) {
 					return;
@@ -56,8 +61,11 @@ export function addFavoriteControls(
 
 		// Add button to all item rows
 		html.find("[data-item-id]").each((_index, element: HTMLElement) => {
-			const itemId = element.dataset.itemId;
-			const relevantItem = itemId && app.object.items.get(itemId);
+			const itemId = <string>element.dataset.itemId;
+			if (!itemId) {
+				return;
+			}
+			const relevantItem = <Item5e>app.object.items.get(itemId);
 
 			if (!relevantItem) {
 				return;

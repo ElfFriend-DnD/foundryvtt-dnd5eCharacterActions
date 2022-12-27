@@ -1,10 +1,11 @@
 import { registerSettings } from "./settings";
-import { MODULE_ABBREV, MODULE_ID, MySettings, TEMPLATES } from "./constants";
-import { getGame, isItemInActionList, log } from "./helpers";
+import { MODULE_ID, MySettings, TEMPLATES } from "./constants";
+import { isItemInActionList, log } from "./helpers";
 import { getActorActionsData } from "./getActorActionsData";
 import { addFavoriteControls } from "./handleFavoriteControls";
+import API from "./api";
 
-Handlebars.registerHelper(`${MODULE_ABBREV}-isEmpty`, (input: Object | Array<any> | Set<any>) => {
+Handlebars.registerHelper(`${MODULE_ID}-isEmpty`, (input: Object | Array<any> | Set<any>) => {
 	if (input instanceof Array) {
 		return input.length < 1;
 	}
@@ -14,7 +15,7 @@ Handlebars.registerHelper(`${MODULE_ABBREV}-isEmpty`, (input: Object | Array<any
 	return isObjectEmpty(input);
 });
 
-Handlebars.registerHelper(`${MODULE_ABBREV}-isItemInActionList`, isItemInActionList);
+Handlebars.registerHelper(`${MODULE_ID}-isItemInActionList`, isItemInActionList);
 
 /**
  * Add the Actions Tab to Sheet HTML. Returns early if the character-actions-dnd5e element already exists
@@ -37,9 +38,7 @@ async function addActionsTab(
 	}
 
 	// Update the nav menu
-	const actionsTabButton = $(
-		'<a class="item" data-tab="actions">' + getGame().i18n.localize(`DND5E.ActionPl`) + "</a>"
-	);
+	const actionsTabButton = $('<a class="item" data-tab="actions">' + game.i18n.localize(`DND5E.ActionPl`) + "</a>");
 	const tabs = html.find('.tabs[data-group="primary"]');
 	tabs.prepend(actionsTabButton);
 
@@ -49,7 +48,7 @@ async function addActionsTab(
 	sheetBody.prepend(actionsTab);
 
 	// add the list to the tab
-	const actionsTabHtml = $(await renderActionsList(app.actor));
+	const actionsTabHtml = $(await API.renderActionsList(<any>app.actor));
 	actionsTab.append(actionsTabHtml);
 
 	// @ts-ignore
@@ -66,54 +65,6 @@ async function addActionsTab(
 	}
 }
 
-const damageTypeIconMap = {
-	acid: '<i class="fas fa-hand-holding-water"></i>',
-	bludgeoning: '<i class="fas fa-gavel"></i>',
-	cold: '<i class="fas fa-snowflake"></i>',
-	fire: '<i class="fas fa-fire-alt"></i>',
-	force: '<i class="fas fa-hat-wizard"></i>',
-	lightning: '<i class="fas fa-bolt"></i>',
-	necrotic: '<i class="fas fa-skull"></i>',
-	piercing: '<i class="fas fa-thumbtack"></i>',
-	poison: '<i class="fas fa-skull-crossbones"></i>',
-	psychic: '<i class="fas fa-brain"></i>',
-	radiant: '<i class="fas fa-sun"></i>',
-	slashing: '<i class="fas fa-cut"></i>',
-	thunder: '<i class="fas fa-wind"></i>',
-	healing: '<i class="fas fa-heart"></i>',
-	temphp: '<i class="fas fa-shield-alt"></i>',
-};
-
-/**
- * Renders the html of the actions list for the provided actor data
- */
-async function renderActionsList(
-	actorData: Actor5e,
-	options?: {
-		rollIcon?: string;
-	}
-) {
-	const actionData = getActorActionsData(actorData);
-
-	log(false, "renderActionsList", {
-		actorData,
-		data: actionData,
-	});
-
-	return renderTemplate(`modules/${MODULE_ID}/templates/actor-actions-list.hbs`, {
-		actionData,
-		abilities: getGame().dnd5e.config.abilityAbbreviations,
-		activationTypes: {
-			...getGame().dnd5e.config.abilityActivationTypes,
-			other: getGame().i18n.localize(`DND5E.ActionOther`),
-		},
-		damageTypes: { ...getGame().dnd5e.config.damageTypes, ...getGame().dnd5e.config.healingTypes },
-		damageTypeIconMap,
-		rollIcon: options?.rollIcon,
-		isOwner: actorData.isOwner,
-	});
-}
-
 /* ------------------------------------ */
 /* Initialize module					*/
 /* ------------------------------------ */
@@ -126,17 +77,14 @@ Hooks.once("init", async function () {
 	// Preload Handlebars templates
 	await loadTemplates(Object.values(flattenObject(TEMPLATES)));
 
-	const characterActionsModuleData = getGame().modules.get(MODULE_ID);
+	const characterActionsModuleData = game.modules.get(MODULE_ID);
 
 	if (characterActionsModuleData) {
-		characterActionsModuleData.api = {
-			getActorActionsData,
-			isItemInActionList,
-			renderActionsList,
-		};
+		characterActionsModuleData.api = API;
 	}
 
-	globalThis[MODULE_ABBREV] = {
+    // TODO TO REMOVE
+	globalThis[MODULE_ID] = {
 		renderActionsList: async function (...args) {
 			log(false, {
 				api: characterActionsModuleData?.api,
@@ -159,6 +107,7 @@ Hooks.once("init", async function () {
 		},
 	};
 
+
 	Hooks.call(`CharacterActions5eReady`, characterActionsModuleData?.api);
 });
 
@@ -166,15 +115,27 @@ Hooks.once("init", async function () {
 Hooks.on("renderActorSheet5e", async (app, html, data) => {
 	// short circut if the user has overwritten these settings
 	switch (app.actor.type) {
-		case "npc":
-			const injectNPCSheet = getGame().settings.get(MODULE_ID, MySettings.injectNPCs) as boolean;
-			if (!injectNPCSheet) return;
-		case "vehicle":
-			const injectVehicleSheet = getGame().settings.get(MODULE_ID, MySettings.injectVehicles) as boolean;
-			if (!injectVehicleSheet) return;
-		case "character":
-			const injectCharacterSheet = getGame().settings.get(MODULE_ID, MySettings.injectCharacters) as boolean;
-			if (!injectCharacterSheet) return;
+		case "npc": {
+			const injectNPCSheet = game.settings.get(MODULE_ID, MySettings.injectNPCs) as boolean;
+			if (!injectNPCSheet) {
+                return;
+            }
+            break;
+        }
+		case "vehicle": {
+			const injectVehicleSheet = game.settings.get(MODULE_ID, MySettings.injectVehicles) as boolean;
+			if (!injectVehicleSheet) {
+                return;
+            }
+            break;
+        }
+		case "character": {
+			const injectCharacterSheet = game.settings.get(MODULE_ID, MySettings.injectCharacters) as boolean;
+			if (!injectCharacterSheet) {
+                return;
+            }
+            break;
+        }
 	}
 
 	log(false, "default sheet open hook firing", {

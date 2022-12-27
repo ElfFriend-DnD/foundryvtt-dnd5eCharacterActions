@@ -99,7 +99,7 @@ class MyCoolCharacterSheet extends ActorSheet5e {
 
 ### `isItemInActionList(item: Item5e): boolean`
 
-A handlebars helper is provided as well in case any sheet wants an easy way to check if an Item being rendered is expected to be part of the Actions List. `CAL5E-isItemInActionList` is a simple wrapper around `isItemInActionList`, it expects the same argument of an `item` instance.
+A handlebars helper is provided as well in case any sheet wants an easy way to check if an Item being rendered is expected to be part of the Actions List. `character-actions-list-5e-isItemInActionList` is a simple wrapper around `isItemInActionList`, it expects the same argument of an `item` instance.
 
 #### Example
 
@@ -135,16 +135,16 @@ type ActorActionsList = Record<
 
 When passed an actor, returns the actor's 'actions list' items organized by activation type. I'm not sure why but it seems some of the information is missing from the Item5e in this list, be wary of that if you are looking to use this in another module.
 
-### Handlebars Helper: `CAL5E-isItemInActionList`
+### Handlebars Helper: `character-actions-list-5e-isItemInActionList`
 
-A handlebars helper is provided as well in case any sheet wants an easy way to check if an Item being rendered is expected to be part of the Actions List. `CAL5E-isItemInActionList` is a simple wrapper around `isItemInActionList`, it expects the same argument of an `item` instance.
+A handlebars helper is provided as well in case any sheet wants an easy way to check if an Item being rendered is expected to be part of the Actions List. `character-actions-list-5e-isItemInActionList` is a simple wrapper around `isItemInActionList`, it expects the same argument of an `item` instance.
 
 #### Example
 
 ```hbs
 {{#each items as |item|}}
   {{!-- other stuff --}}
-  {{#if (CAL5E-isItemInActionList item)}}Action{{/if}}
+  {{#if (character-actions-list-5e-isItemInActionList item)}}Action{{/if}}
 {{/each}}
 ```
 

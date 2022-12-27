@@ -1,5 +1,5 @@
 export const MODULE_ID = "character-actions-list-5e";
-export const MODULE_ABBREV = "CAL5E";
+// export const MODULE_ID = "CAL5E";
 
 export enum MySettings {
 	includeConsumables = "include-consumables",

@@ -13,6 +13,8 @@
 
 This module provides a placeable reusable "component" which details all of the actions a given Character Actor can take, intending to replicate the list in the Actions Tab of the D&DBeyond character sheet. The module has two ways in which it can be used: it will either inject the actions tab itself, or another module can leverage the API it provides and use that to inject the proper HTML wherever it desires.
 
+![preview](./wiki/images/preview.png)
+
 ## List Features
 
 By default the list will attempt to narrow down your active abilities, items, and spells into the ones most likely to be useful in Combat. The full logic for the filter is in `isItemInActionList` inside `src/modules/helpers.ts`. Here are the basics:

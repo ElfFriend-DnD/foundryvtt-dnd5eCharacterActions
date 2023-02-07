@@ -29,7 +29,7 @@ export function getActorActionsData(actor: Actor5e) {
     .map((item) => {
       if (item.labels) {
         //@ts-expect-error
-        item.labels.type = getGame().i18n.localize(`DND5E.ItemType${item.type.titleCase()}`);
+        item.labels.type = getGame().i18n.localize(`ITEM.Type${item.type.titleCase()}`);
       }
 
       // removes any in-formula flavor text from the formula in the label
